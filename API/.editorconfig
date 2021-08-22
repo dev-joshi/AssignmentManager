@@ -1,0 +1,4 @@
+﻿[*.cs]
+
+# SA1028: Code should not contain trailing whitespace
+dotnet_diagnostic.SA1028.severity = error
