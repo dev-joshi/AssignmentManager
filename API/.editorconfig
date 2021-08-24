@@ -2,3 +2,11 @@
 
 # SA1028: Code should not contain trailing whitespace
 dotnet_diagnostic.SA1028.severity = error
+csharp_using_directive_placement=inside_namespace:error
+dotnet_diagnostic.SA1633.severity=silent
+
+# SA1027: Use tabs correctly
+dotnet_diagnostic.SA1027.severity = none
+
+[*.{cs,vb}]
+indent_style=space

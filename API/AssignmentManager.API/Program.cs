@@ -4,7 +4,7 @@ namespace AssignmentManager.API
     using Microsoft.Extensions.Hosting;
 
     /// <summary>
-    ///  Program
+    ///  Program.
     /// </summary>
     public class Program
     {

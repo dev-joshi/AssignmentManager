@@ -9,6 +9,40 @@
     public class Assignment
     {
         /// <summary>
+        /// Initializes a new instance of the <see cref="Assignment"/> class.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <param name="ownerId">The owner identifier.</param>
+        /// <param name="tags">The tags.</param>
+        /// <param name="name">The name.</param>
+        /// <param name="description">The description.</param>
+        /// <param name="attachments">The attachments.</param>
+        /// <param name="createdOn">The created on.</param>
+        /// <param name="modifiedOn">The modified on.</param>
+        /// <param name="deadline">The deadline.</param>
+        public Assignment(
+            int id,
+            int ownerId,
+            List<string> tags,
+            string name,
+            string description,
+            List<Attachment> attachments,
+            DateTime createdOn,
+            DateTime modifiedOn,
+            DateTime deadline)
+        {
+            this.Id = id;
+            this.OwnerId = ownerId;
+            this.Tags = tags;
+            this.Name = name;
+            this.Description = description;
+            this.Attachments = attachments;
+            this.CreatedOn = createdOn;
+            this.ModifiedOn = modifiedOn;
+            this.Deadline = deadline;
+        }
+
+        /// <summary>
         /// Gets the identifier.
         /// </summary>
         /// <value>
