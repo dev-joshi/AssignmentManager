@@ -10,12 +10,13 @@ import { SecurityService } from './security/security.service';
 import { AuthGuard } from './security/auth.guard';
 import { RedirectGuard } from './redirects/redirect-guard';
 import { Router, RouterModule } from '@angular/router';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    DashboardComponent
+    DashboardComponent,
   ],
   imports: [
     BrowserModule,
@@ -23,6 +24,7 @@ import { Router, RouterModule } from '@angular/router';
     FormsModule,
     ReactiveFormsModule,
     RouterModule,
+    HttpClientModule,
   ],
   providers: [
     AuthGuard,

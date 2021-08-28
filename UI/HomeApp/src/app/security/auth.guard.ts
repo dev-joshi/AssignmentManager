@@ -19,17 +19,19 @@ export class AuthGuard implements CanActivate {
       let claimType: keyof AppUserAuth = route.data["claimType"];
       
       if( this.security?.securityObject?.isAuthenticated
-       && this.security?.securityObject[claimType])
+       && (!route.data["claimType"] || this.security?.securityObject[claimType]))
        {
-           window.location.href = route.data['externalUrl'];
+          if(route.data['externalUrl'])
+          {
+             window.location.href = route.data['externalUrl'];
+          }
            return true;
        }
        else
        {
          this.router.navigate(['login'],
          {queryParams: {returnUrl: state.url}});
-         return false;
+         return false; 
        }
   }
-  
 }

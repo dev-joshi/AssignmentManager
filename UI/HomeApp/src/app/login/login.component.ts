@@ -36,7 +36,7 @@ export class LoginComponent implements OnInit {
          userid: ['', Validators.required],  
          password: ['', Validators.required]  
       });  
-   this.returnUrl = '/dashboard';  
+   this.submitted = false;
    this.redirectUrl = this.route?.snapshot?.queryParamMap?.get('returnUrl');
    this.authService.logout();  
    }  
@@ -45,32 +45,32 @@ export class LoginComponent implements OnInit {
 get f() { return this.loginForm?.controls; }  
   
   
-login() {  
-  
-   // stop here if form is invalid 
-    
-   if (this.loginForm?.invalid) {  
-      return;  
-   }  
-   else {  
-     /*if (this.f?.userid.value == this.model.userid && this.f?.password.value == this.model.password) {
-       console.log("Login successful");
-       //this.authService.authLogin(this.model);  
-       localStorage.setItem('isLoggedIn', "true");
-       localStorage.setItem('token', this.f.userid.value);
-       this.router.navigate([this.returnUrl]);
-       */
-        this.appUser.userName = this.f.userid.value;
-        this.appUser.password = this.f.password.value;
+   login() {
 
-       this.securityService.login(this.appUser).subscribe(response => 
-        {this.securityObject = response;}
-        );
+      this.submitted =true;
+      // stop here if form is invalid 
 
-        if (this.redirectUrl)
-        {
-            this.router.navigateByUrl(this.returnUrl);
-        }
-      }  
-     }   
+      if (this.loginForm?.invalid) {
+         return;
+      }
+      else {
+         this.appUser.userName = this.f.userid.value;
+         this.appUser.password = this.f.password.value;
+         
+         this.securityService.login(this.appUser).subscribe(response => {
+            this.securityObject = response;
+            if(this.securityObject?.isAuthenticated)
+            {
+              localStorage.setItem('Details', JSON.stringify(this.securityObject));
+              console.log("login true");
+            }
+            if (this.redirectUrl) {
+               this.router.navigateByUrl(this.returnUrl);
+            }
+         },
+         () => {
+            this.securityObject = new AppUserAuth();
+         });
+      }
+   }
 } 

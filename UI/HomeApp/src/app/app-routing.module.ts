@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AppComponent } from './app.component';
+import { AppModule } from './app.module';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { LoginComponent } from './login/login.component';
 import { AuthGuard } from './security/auth.guard';
@@ -7,11 +9,12 @@ import { AuthGuard } from './security/auth.guard';
 const routes: Routes = [
   {
     path: 'dashboard',
-    component: DashboardComponent
+    component: DashboardComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 'login',
-    component: LoginComponent
+    component: LoginComponent,
   },
   {
     path: 'student',
@@ -21,7 +24,6 @@ const routes: Routes = [
       {claimType: 'canAcessStudent'},
       {externalUrl: 'https://www.youtube.com/'}]
   },
-  
 ];
 
 @NgModule({
