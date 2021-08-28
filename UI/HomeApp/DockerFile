@@ -1,0 +1,14 @@
+FROM node:alpine as HomeApp
+
+RUN apk update && apk add --no-cache make git
+
+WORKDIR /app
+
+COPY HomeApp/package*.json  /app/
+
+RUN npm install @angular/cli@6.0.8 -g \
+    && npm ci
+
+COPY HomeApp /app
+
+EXPOSE 4200

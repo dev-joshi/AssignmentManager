@@ -10,7 +10,10 @@ const routes: Routes = [
   {
     path: 'dashboard',
     component: DashboardComponent,
-    canActivate: [AuthGuard]
+    canActivate: [AuthGuard],
+    data: {
+      externalUrl: 'https://www.youtube.com/'
+    }
   },
   {
     path: 'login',

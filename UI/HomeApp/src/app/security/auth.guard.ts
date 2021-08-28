@@ -21,8 +21,11 @@ export class AuthGuard implements CanActivate {
       if( this.security?.securityObject?.isAuthenticated
        && (!route.data["claimType"] || this.security?.securityObject[claimType]))
        {
-          if(route.data['externalUrl'])
-          {
+         console.log("yaya");
+         console.log(route.data);
+         console.log(route.data["externalUrl"]);
+          if(route.data["externalUrl"])
+          { console.log("yaya");
              window.location.href = route.data['externalUrl'];
           }
            return true;
