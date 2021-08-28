@@ -1,0 +1,14 @@
+FROM node:alpine as PublisherApp
+
+RUN apk update && apk add --no-cache make git
+
+WORKDIR /app
+
+COPY PublisherApp/package*.json  /app/
+
+RUN npm install @angular/cli@6.0.8 -g \
+    && npm ci
+
+COPY PublisherApp /app
+
+EXPOSE 4201

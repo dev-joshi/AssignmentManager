@@ -12,7 +12,7 @@ const routes: Routes = [
     component: DashboardComponent,
     canActivate: [AuthGuard],
     data: {
-      externalUrl: 'https://www.youtube.com/'
+      externalUrl: 'http://localhost/PublisherApp'
     }
   },
   {

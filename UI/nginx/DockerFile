@@ -1,17 +1,3 @@
 FROM nginx:alpine
 
-RUN apk add --update nodejs npm \
-    && npm install -g @angular/cli
-
-WORKDIR /app
-
-COPY HomeApp ./HomeApp
-
-RUN rm -rf /usr/share/nginx/html/*
-
-RUN cd HomeApp \
-    && npm ci \
-    && npm run build:docker \
-    && cd ..
-
 EXPOSE 80
