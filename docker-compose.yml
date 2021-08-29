@@ -17,7 +17,7 @@ services:
       - /app/node_modules
     ports:
       - "4201:4201"
-    command: "ng serve --port 4201 --host 0.0.0.0 --public-host=\"http://0.0.0.0:4201\" --disable-host-check"
+    command: "ng serve --port 4201 --host 0.0.0.0 --public-host=\"http://0.0.0.0:4201\" --base-href /PublisherApp/ --disable-host-check"
 
   prachi-am-subscriber:
     image: prachi-am-subscriber
@@ -26,7 +26,7 @@ services:
       - /app/node_modules
     ports:
       - "4202:4202"
-    command: "ng serve --port 4202 --host 0.0.0.0 --public-host=\"http://0.0.0.0:4202\" --disable-host-check"
+    command: "ng serve --port 4202 --host 0.0.0.0 --public-host=\"http://0.0.0.0:4202\" --base-href /SubscriberApp/ --disable-host-check"
 
   prachi-am-nginx:
     image: prachi-am-nginx
