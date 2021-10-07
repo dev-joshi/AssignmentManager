@@ -16,5 +16,8 @@ docker build --rm -t prachi-am-publisher:latest -f UI\PublisherApp\DockerFile UI
 REM Build Angular Subscriber app
 docker build --rm -t prachi-am-subscriber:latest -f UI\SubscriberApp\DockerFile UI\
 
+REM check and print config of docker compose file
+docker-compose -f docker-compose.yml config
+
 REM Spawn containers using docker compose file
 docker-compose -f docker-compose.yml up
