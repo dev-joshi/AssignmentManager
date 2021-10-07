@@ -8,15 +8,12 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.11.1" />
-    <PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.2" />
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="..\.editorconfig" Link=".editorconfig" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\..\Entities\AssignmentManager.Entities.csproj" />
+    <ProjectReference Include="..\AssignmentManager.EF\AssignmentManager.EF.csproj" />
+    <ProjectReference Include="..\AssignmentManager.Entities\AssignmentManager.Entities.csproj" />
   </ItemGroup>
 
 </Project>

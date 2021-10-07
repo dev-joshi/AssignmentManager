@@ -22,6 +22,14 @@ services:
     volumes:
       - ./pgadmin:/root/.pgadmin
 
+  prachi-am-api:
+    image: prachi-am-api
+    ports:
+      - "8080:80"
+      - "8081:443"
+    depends_on:
+      - prachi-am-db
+
   prachi-am-home:
     image: prachi-am-home
     volumes:
@@ -31,7 +39,7 @@ services:
       - "4200:4200"
     command: "ng serve --port 4200 --host 0.0.0.0 --public-host=\"http://0.0.0.0:4200\" --disable-host-check"
     depends_on:
-      - prachi-am-db
+      - prachi-am-api
 
   prachi-am-publisher:
     image: prachi-am-publisher
@@ -42,7 +50,7 @@ services:
       - "4201:4201"
     command: "ng serve --port 4201 --host 0.0.0.0 --public-host=\"http://0.0.0.0:4201\" --base-href /PublisherApp/ --disable-host-check"
     depends_on:
-      - prachi-am-db
+      - prachi-am-home
 
   prachi-am-subscriber:
     image: prachi-am-subscriber
@@ -53,7 +61,7 @@ services:
       - "4202:4202"
     command: "ng serve --port 4202 --host 0.0.0.0 --public-host=\"http://0.0.0.0:4202\" --base-href /SubscriberApp/ --disable-host-check"
     depends_on:
-      - prachi-am-db
+      - prachi-am-home
 
   prachi-am-nginx:
     image: prachi-am-nginx

@@ -1,7 +1,9 @@
 ﻿namespace AssignmentManager.API.Controllers
 {
-    using System;
     using System.Collections.Generic;
+    using System.Linq;
+    using System.Threading.Tasks;
+    using AssignmentManager.DB.Repositories;
     using AssignmentManager.Entities;
     using Microsoft.AspNetCore.Mvc;
 
@@ -13,67 +15,95 @@
     public class AssignmentController : ControllerBase
     {
         /// <summary>
+        /// The assignment repository.
+        /// </summary>
+        private readonly IAssignmentRepository assignmentRepository;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AssignmentController"/> class.
+        /// </summary>
+        /// <param name="assignmentRepository">The assignment repository.</param>
+        public AssignmentController(IAssignmentRepository assignmentRepository)
+        {
+            this.assignmentRepository = assignmentRepository;
+        }
+
+        /// <summary>
+        /// Gets the response api/assignments/{id}.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <returns>assignment for given id.</returns>
+        [HttpGet("{id}")]
+        public async Task<ActionResult<Assignment>> GetAssignment(int id)
+        {
+            var product = await this.assignmentRepository.GetAssignmentAsync(id);
+
+            if (product is null)
+            {
+                return this.NotFound();
+            }
+
+            return this.Ok(product);
+        }
+
+        /// <summary>
+        /// Gets the response api/assignments.
+        /// </summary>
+        /// <returns>all the assignments.</returns>
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<Assignment>>> GetAssignments()
+        {
+            return this.Ok(await this.assignmentRepository.GetAllAssignmentsAsync());
+        }
+
+        /// <summary>
         /// Gets the response api/assignments/user/{id}.
         /// </summary>
         /// <param name="id">The user id.</param>
         /// <returns>assignments for the given user.</returns>
         [HttpGet("user/{id}")]
-        public ActionResult<IEnumerable<Assignment>> GetAssignmentsByUser(int id)
+        public async Task<ActionResult<IEnumerable<Assignment>>> GetAssignmentsByUser(int id)
         {
-            var assignments = new List<Assignment>();
-
             if (id > 0)
             {
-                // Adding test data to debug UI.
-                for (int i = 1; i <= id; i++)
+                var assignments = await this.assignmentRepository.GetAssignmentByOwnerAsync(id);
+
+                if ((assignments is not null) && (assignments.Count() > 0))
                 {
-                    assignments.Add(new Assignment(
-                        i,
-                        (i % 2) + 1,
-                        new List<string> { i % 2 == 0 ? "two" : "one" },
-                        $"Assignment {i}",
-                        $"The assignment number {i}",
-                        null,
-                        DateTime.Now.AddDays(-5 - new Random().Next(1, 5)),
-                        DateTime.Now,
-                        DateTime.Now.AddDays(5 + new Random().Next(1, 5))));
+                    return this.Ok(assignments);
                 }
+
+                return this.NotFound();
             }
 
-            return assignments;
+            return this.BadRequest();
         }
 
         /// <summary>
-        /// Gets the response api/assignments/owner/{id}.
+        /// Gets the response api/assignments/Add.
         /// </summary>
-        /// <param name="id">The owner id.</param>
-		/// <returns>assignments for the given owner.</returns>
-        [HttpGet("owner/{id}")]
-        public ActionResult<IEnumerable<Assignment>> GetAssignmentsByOwner(int id)
-		{
-			var assignments = new List<Assignment>();
+        /// <param name="assignment">The assignment.</param>
+        /// <returns>the response for addition.</returns>
+        [HttpPatch("Add")]
+        [HttpPost("Add")]
+        [HttpPut("Add")]
+        public async Task<ActionResult> AddAssignment(Assignment assignment)
+        {
+            await this.assignmentRepository.AddOrUpdateAsync(assignment);
 
-			if (id > 0)
-			{
-                var num = new Random().Next(1, 6);
+            return this.Ok();
+        }
 
-				// Adding test data to debug UI.
-                for (int i = 1; i <= num; i++)
-				{
-					assignments.Add(new Assignment(
-						i,
-						id,
-						new List<string> { id % 2 == 0 ? "two" : "one" },
-						$"Assignment {i}",
-						$"The assignment number {i}",
-						null,
-						DateTime.Now.AddDays(-5 - new Random().Next(1, 5)),
-						DateTime.Now,
-						DateTime.Now.AddDays(5 + new Random().Next(1, 5))));
-				}
-            }
-
-			return assignments;
+        /// <summary>
+        /// Gets the delete response for api/assignments/{id}.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <returns>the response for deletion.</returns>
+        [HttpDelete("{id}")]
+        public async Task<ActionResult> DeleteAssignment(int id)
+        {
+            await this.assignmentRepository.DeleteAsync(id);
+            return this.Ok();
         }
     }
 }

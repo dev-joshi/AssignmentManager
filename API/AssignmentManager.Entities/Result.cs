@@ -9,51 +9,51 @@
     public class Result
     {
         /// <summary>
-        /// Gets the identifier.
+        /// Gets or Sets the identifier.
         /// </summary>
         /// <value>
         /// The identifier.
         /// </value>
-        public int Id { get; private set; }
+        public int Id { get; set; }
 
         /// <summary>
-        /// Gets the assignment identifier.
+        /// Gets or Sets the assignment identifier.
         /// </summary>
         /// <value>
         /// The assignment identifier.
         /// </value>
-        public int AssignmentId { get; private set; }
+        public int AssignmentId { get; set; }
 
         /// <summary>
-        /// Gets the user identifier.
+        /// Gets or Sets the user identifier.
         /// </summary>
         /// <value>
         /// The user identifier.
         /// </value>
-        public int UserId { get; private set; }
+        public int UserId { get; set; }
 
         /// <summary>
-        /// Gets the created on.
+        /// Gets or Sets the created on.
         /// </summary>
         /// <value>
         /// The created on.
         /// </value>
-        public DateTime CreatedOn { get; private set; }
+        public DateTime CreatedOn { get; set; }
 
         /// <summary>
-        /// Gets the modified on.
+        /// Gets or Sets the modified on.
         /// </summary>
         /// <value>
         /// The modified on.
         /// </value>
-        public DateTime ModifiedOn { get; private set; }
+        public DateTime ModifiedOn { get; set; }
 
         /// <summary>
-        /// Gets the attachments.
+        /// Gets or Sets the attachments.
         /// </summary>
         /// <value>
         /// The attachments.
         /// </value>
-        public List<Attachment> Attachments { get; private set; }
+        public virtual ICollection<Attachment> Attachments { get; set; }
     }
 }

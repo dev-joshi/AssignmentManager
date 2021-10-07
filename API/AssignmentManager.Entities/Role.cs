@@ -6,19 +6,19 @@
     public class Role
     {
         /// <summary>
-        /// Gets the identifier.
+        /// Gets or Sets the identifier.
         /// </summary>
         /// <value>
         /// The identifier.
         /// </value>
-        public int Id { get; private set; }
+        public int Id { get; set; }
 
         /// <summary>
-        /// Gets the name.
+        /// Gets or Sets the name.
         /// </summary>
         /// <value>
         /// The name.
         /// </value>
-        public string Name { get; private set; }
+        public string Name { get; set; }
     }
 }

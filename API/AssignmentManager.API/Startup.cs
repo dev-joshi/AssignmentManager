@@ -1,5 +1,8 @@
 namespace AssignmentManager.API
 {
+    using System;
+    using System.Threading.Tasks;
+    using AssignmentManager.DB.DI;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.Extensions.Configuration;
@@ -29,6 +32,7 @@ namespace AssignmentManager.API
         /// <param name="services">The services.</param>
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDatabase();
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
@@ -60,6 +64,31 @@ namespace AssignmentManager.API
             {
                 endpoints.MapControllers();
             });
+
+            using (var scope = app.ApplicationServices.CreateScope())
+            {
+                this.SetupDB(scope.ServiceProvider);
+            }
+        }
+
+        private void SetupDB(IServiceProvider serviceProvider)
+        {
+            // Setup DB with 3 attempts 5 seconds apart.
+            var attemptsLeft = 3;
+
+            while (attemptsLeft > 0)
+            {
+                try
+                {
+                    serviceProvider.MigrateDatabase();
+                    break;
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Failed to Setup DB : {ex}, Attempts Left : {--attemptsLeft}");
+                    Task.Delay(TimeSpan.FromSeconds(5)).ConfigureAwait(false).GetAwaiter().GetResult();
+                }
+            }
         }
     }
 }
