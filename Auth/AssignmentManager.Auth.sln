@@ -26,6 +26,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AssignmentManager.Entities"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AssignmentManager.Auth.Business", "AssignmentManager.Auth.Business\AssignmentManager.Auth.Business.csproj", "{B2713FC9-0AEC-4E41-A897-ACC194556B06}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AssignmentManager.Storage", "..\DB\AssignmentManager.Storage\AssignmentManager.Storage.csproj", "{96929F00-37B5-4F7A-B9B6-C2A287037AA2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -48,6 +50,10 @@ Global
 		{B2713FC9-0AEC-4E41-A897-ACC194556B06}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B2713FC9-0AEC-4E41-A897-ACC194556B06}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B2713FC9-0AEC-4E41-A897-ACC194556B06}.Release|Any CPU.Build.0 = Release|Any CPU
+		{96929F00-37B5-4F7A-B9B6-C2A287037AA2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{96929F00-37B5-4F7A-B9B6-C2A287037AA2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{96929F00-37B5-4F7A-B9B6-C2A287037AA2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{96929F00-37B5-4F7A-B9B6-C2A287037AA2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -55,6 +61,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{3DDCA4E3-42E9-41CD-BB5D-99DBA6B6A625} = {1CE0C188-8440-418E-AF43-468F9C6256B5}
 		{B432729C-0CEA-46A3-A938-C79C9E7DF50E} = {49C5FB69-79AF-4B4C-A01B-B3503027CECB}
+		{96929F00-37B5-4F7A-B9B6-C2A287037AA2} = {1CE0C188-8440-418E-AF43-468F9C6256B5}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {96CDA5E6-3BD2-4C80-85D4-60A1DB939C41}

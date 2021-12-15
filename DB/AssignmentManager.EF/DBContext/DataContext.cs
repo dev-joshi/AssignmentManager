@@ -38,6 +38,9 @@
         public DbSet<User> Users { get; set; }
 
         /// <inheritdoc/>
+        public DbSet<Service> Services { get; set; }
+
+        /// <inheritdoc/>
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             var builder = new ConfigurationBuilder();

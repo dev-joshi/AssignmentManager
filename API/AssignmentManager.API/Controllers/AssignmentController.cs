@@ -3,7 +3,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
-    using AssignmentManager.DB.Repositories;
+    using AssignmentManager.DB.Storage.Repositories;
     using AssignmentManager.Entities;
     using Microsoft.AspNetCore.Mvc;
 

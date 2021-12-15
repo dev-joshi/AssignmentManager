@@ -3,7 +3,9 @@
     using System;
     using System.Threading.Tasks;
     using AssignmentManager.DB.DBContext;
-    using AssignmentManager.DB.Repositories;
+    using AssignmentManager.DB.EF.Repositories;
+    using AssignmentManager.DB.Storage.Repositories;
+    using AssignmentManager.Entities;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.DependencyInjection;
 
@@ -43,6 +45,7 @@
                 try
                 {
                     var context = serviceProvider.GetService<DataContext>();
+                    context.Database.EnsureCreated();
                     context.Database.Migrate();
                     Console.WriteLine("DB Setup Completed");
                     break;
@@ -61,6 +64,9 @@
                     }
                 }
             }
+
+            // Seed some test data.
+            serviceProvider.GetService<DataContext>().SeedData();
         }
 
         /// <summary>
@@ -71,8 +77,43 @@
         private static IServiceCollection AddRepositories(this IServiceCollection serviceCollection)
         {
             serviceCollection.AddTransient<IAssignmentRepository, AssignmentRepository>();
+            serviceCollection.AddTransient<IServiceRepository, ServiceRepository>();
+            serviceCollection.AddTransient<IUserRepository, UserRepository>();
+            serviceCollection.AddTransient<IRoleRepository, RoleRepository>();
 
             return serviceCollection;
+        }
+
+        /// <summary>
+        /// Seeds test data.
+        /// </summary>
+        /// <param name="dataContext">The data context.</param>
+        private static async void SeedData(this DataContext dataContext)
+        {
+            if ((await dataContext.Roles.FindAsync(1)) == null)
+            {
+                dataContext.Roles.Add(new Role { Id = 1, Name = "Role1" });
+            }
+
+            if ((await dataContext.Roles.FindAsync(2)) == null)
+            {
+                dataContext.Roles.Add(new Role { Id = 2, Name = "Role2" });
+            }
+
+            if ((await dataContext.Roles.FindAsync(3)) == null)
+            {
+                dataContext.Roles.Add(new Role { Id = 3, Name = "Role3" });
+            }
+
+            if ((await dataContext.Users.FindAsync(1)) == null)
+            {
+                dataContext.Users.Add(new User { Id = 1, Name = "Test User 1", UserName = "TestUser1", PasswordHash = "abc".Hash() });
+            }
+
+            if ((await dataContext.Services.FindAsync(1)) == null)
+            {
+                dataContext.Services.Add(new Service { Id = 1, ServiceName = "Test Service 1" });
+            }
         }
     }
 }

@@ -1,6 +1,8 @@
 @echo off
 REM Commands to deploy Assignment Manager app
 
+REM "C:\Program Files\Docker\Docker\DockerCli.exe" -SwitchDaemon
+
 REM set working directory to bat file parent directory
 cd /d %~dp0
 

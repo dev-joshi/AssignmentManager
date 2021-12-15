@@ -43,6 +43,14 @@
         DbSet<User> Users { get; set; }
 
         /// <summary>
+        /// Gets or sets the services.
+        /// </summary>
+        /// <value>
+        /// The services.
+        /// </value>
+        DbSet<Service> Services { get; set; }
+
+        /// <summary>
         /// Saves the changes async.
         /// </summary>
         /// <param name="cancellationToken">The cancellation token.</param>

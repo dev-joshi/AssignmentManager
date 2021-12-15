@@ -6,15 +6,13 @@ EXPOSE 443
 FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build
 WORKDIR /src
 
-# Copy all project files for NuGet restore
-COPY ["Auth/AssignmentManager.Auth.API/AssignmentManager.Auth.API.csproj", "Auth/AssignmentManager.Auth.API/"]
-COPY ["DB/AssignmentManager.EF/AssignmentManager.EF.csproj", "DB/AssignmentManager.EF/"]
-COPY ["Entities/AssignmentManager.Entities.csproj", "Entities/"]
+# Copy all files
+COPY . .
 
 # NuGet restore
 RUN dotnet restore "Auth/AssignmentManager.Auth.API/AssignmentManager.Auth.API.csproj"
 
-COPY . .
+# Solution Build
 WORKDIR "/src/Auth/AssignmentManager.Auth.API"
 RUN dotnet build "AssignmentManager.Auth.API.csproj" -c Release -o /app/build
 

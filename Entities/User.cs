@@ -1,5 +1,6 @@
 ﻿namespace AssignmentManager.Entities
 {
+    using System;
     using System.Collections.Generic;
 
     /// <summary>
@@ -16,12 +17,12 @@
         public int Id { get; set; }
 
         /// <summary>
-        /// Gets or Sets the role.
+        /// Gets or Sets the roles.
         /// </summary>
         /// <value>
-        /// The role.
+        /// The roles.
         /// </value>
-        public Role Role { get; set; }
+        public ICollection<Role> Roles { get; set; }
 
         /// <summary>
         /// Gets or Sets the name.
@@ -30,6 +31,14 @@
         /// The name.
         /// </value>
         public string Name { get; set; }
+
+        /// <summary>
+        /// Gets or sets the name of the user.
+        /// </summary>
+        /// <value>
+        /// The name of the user.
+        /// </value>
+        public string UserName { get; set; }
 
         /// <summary>
         /// Gets or Sets the password hash.
@@ -70,5 +79,21 @@
         /// The contact number.
         /// </value>
         public string ContactNumber { get; set; }
+
+        /// <summary>
+        /// Gets or Sets the created on.
+        /// </summary>
+        /// <value>
+        /// The created on.
+        /// </value>
+        public DateTime CreatedOn { get; set; }
+
+        /// <summary>
+        /// Gets or Sets the modified on.
+        /// </summary>
+        /// <value>
+        /// The modified on.
+        /// </value>
+        public DateTime ModifiedOn { get; set; }
     }
 }

@@ -7,6 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="6.0.0" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="6.0.0" />
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.11.1" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3" />
   </ItemGroup>
@@ -14,6 +16,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\DB\AssignmentManager.EF\AssignmentManager.EF.csproj" />
     <ProjectReference Include="..\..\Entities\AssignmentManager.Entities.csproj" />
+    <ProjectReference Include="..\AssignmentManager.Auth.Business\AssignmentManager.Auth.Business.csproj" />
   </ItemGroup>
 
 </Project>

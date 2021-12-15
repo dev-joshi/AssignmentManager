@@ -1,5 +1,6 @@
 namespace AssignmentManager.Auth
 {
+    using AssignmentManager.Auth.Business.DI;
     using AssignmentManager.DB.DI;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
@@ -31,6 +32,7 @@ namespace AssignmentManager.Auth
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDatabase();
+            services.AddTokenGeneration();
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {

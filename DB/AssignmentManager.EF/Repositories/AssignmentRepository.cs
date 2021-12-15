@@ -1,15 +1,16 @@
-﻿namespace AssignmentManager.DB.Repositories
+﻿namespace AssignmentManager.DB.EF.Repositories
 {
     using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
     using AssignmentManager.DB.DBContext;
+    using AssignmentManager.DB.Storage.Repositories;
     using AssignmentManager.Entities;
     using Microsoft.EntityFrameworkCore;
 
     /// <inheritdoc/>
-    public class AssignmentRepository : IAssignmentRepository
+    internal class AssignmentRepository : IAssignmentRepository
     {
         /// <summary>
         /// The data context.

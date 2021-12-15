@@ -1,4 +1,4 @@
-﻿namespace AssignmentManager.DB.Repositories
+﻿namespace AssignmentManager.DB.Storage.Repositories
 {
     using System.Collections.Generic;
     using System.Threading.Tasks;
