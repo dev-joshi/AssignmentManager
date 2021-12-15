@@ -388,5 +388,5 @@ FodyWeavers.xsd
 *.sln.iml
 
 #Postgres DB data files
-pgdata/**
-pgadmin/**
+DB/pgdata/**
+DB/pgadmin/**

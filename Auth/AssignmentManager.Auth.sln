@@ -1,0 +1,62 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31613.86
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{DEBB8734-219C-45A7-A2F4-87AE0E05DE8F}"
+	ProjectSection(SolutionItems) = preProject
+		.dockerignore = .dockerignore
+		..\.editorconfig = ..\.editorconfig
+		..\.gitignore = ..\.gitignore
+		..\deploy.bat = ..\deploy.bat
+		directory.build.props = directory.build.props
+		..\docker-compose.yml = ..\docker-compose.yml
+		Dockerfile = Dockerfile
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AssignmentManager.Auth.API", "AssignmentManager.Auth.API\AssignmentManager.Auth.API.csproj", "{A766F306-42DB-47F2-96A0-780D5F2BA0D1}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DB", "DB", "{1CE0C188-8440-418E-AF43-468F9C6256B5}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Entities", "Entities", "{49C5FB69-79AF-4B4C-A01B-B3503027CECB}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AssignmentManager.EF", "..\DB\AssignmentManager.EF\AssignmentManager.EF.csproj", "{3DDCA4E3-42E9-41CD-BB5D-99DBA6B6A625}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AssignmentManager.Entities", "..\Entities\AssignmentManager.Entities.csproj", "{B432729C-0CEA-46A3-A938-C79C9E7DF50E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AssignmentManager.Auth.Business", "AssignmentManager.Auth.Business\AssignmentManager.Auth.Business.csproj", "{B2713FC9-0AEC-4E41-A897-ACC194556B06}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A766F306-42DB-47F2-96A0-780D5F2BA0D1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A766F306-42DB-47F2-96A0-780D5F2BA0D1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A766F306-42DB-47F2-96A0-780D5F2BA0D1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A766F306-42DB-47F2-96A0-780D5F2BA0D1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3DDCA4E3-42E9-41CD-BB5D-99DBA6B6A625}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3DDCA4E3-42E9-41CD-BB5D-99DBA6B6A625}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3DDCA4E3-42E9-41CD-BB5D-99DBA6B6A625}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3DDCA4E3-42E9-41CD-BB5D-99DBA6B6A625}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B432729C-0CEA-46A3-A938-C79C9E7DF50E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B432729C-0CEA-46A3-A938-C79C9E7DF50E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B432729C-0CEA-46A3-A938-C79C9E7DF50E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B432729C-0CEA-46A3-A938-C79C9E7DF50E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B2713FC9-0AEC-4E41-A897-ACC194556B06}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B2713FC9-0AEC-4E41-A897-ACC194556B06}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B2713FC9-0AEC-4E41-A897-ACC194556B06}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B2713FC9-0AEC-4E41-A897-ACC194556B06}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{3DDCA4E3-42E9-41CD-BB5D-99DBA6B6A625} = {1CE0C188-8440-418E-AF43-468F9C6256B5}
+		{B432729C-0CEA-46A3-A938-C79C9E7DF50E} = {49C5FB69-79AF-4B4C-A01B-B3503027CECB}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {96CDA5E6-3BD2-4C80-85D4-60A1DB939C41}
+	EndGlobalSection
+EndGlobal

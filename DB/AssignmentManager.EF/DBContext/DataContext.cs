@@ -1,12 +1,9 @@
 ﻿namespace AssignmentManager.DB.DBContext
 {
-    using System;
-    using System.IO;
     using AssignmentManager.Entities;
     using Microsoft.EntityFrameworkCore;
-    using Microsoft.EntityFrameworkCore.Infrastructure;
-    using Microsoft.EntityFrameworkCore.Storage;
     using Microsoft.Extensions.Configuration;
+    using System.IO;
 
     /// <inheritdoc/>
     internal class DataContext : DbContext, IDataContext

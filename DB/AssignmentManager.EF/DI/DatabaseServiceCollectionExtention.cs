@@ -1,6 +1,7 @@
 ﻿namespace AssignmentManager.DB.DI
 {
     using System;
+    using System.Threading.Tasks;
     using AssignmentManager.DB.DBContext;
     using AssignmentManager.DB.Repositories;
     using Microsoft.EntityFrameworkCore;
@@ -30,11 +31,35 @@
         /// Migrates the database.
         /// </summary>
         /// <param name="serviceProvider">The service provider.</param>
-        public static void MigrateDatabase(this IServiceProvider serviceProvider)
+        public static void SetupDB(this IServiceProvider serviceProvider)
         {
-            using (var context = serviceProvider.GetService<DataContext>())
+            // Setup DB with 3 attempts 10 seconds apart.
+            var attemptsLeft = 3;
+
+            Console.WriteLine($"Setting up DB with {attemptsLeft} attemps");
+
+            while (attemptsLeft > 0)
             {
-                context.Database.Migrate();
+                try
+                {
+                    var context = serviceProvider.GetService<DataContext>();
+                    context.Database.Migrate();
+                    Console.WriteLine("DB Setup Completed");
+                    break;
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Failed to Setup DB : {ex}, Attempts Left : {--attemptsLeft}");
+
+                    if (attemptsLeft <= 0)
+                    {
+                        throw;
+                    }
+                    else
+                    {
+                        Task.Delay(TimeSpan.FromSeconds(10)).ConfigureAwait(false).GetAwaiter().GetResult();
+                    }
+                }
             }
         }
 

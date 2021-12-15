@@ -8,25 +8,33 @@ services:
       - POSTGRES_PASSWORD=postgres
       - POSTGRES_DB=am-db
     volumes:
-      - ./pgdata:/var/lib/postgresql/data
+      - ./DB/pgdata:/var/lib/postgresql/data
     ports:
       - "5432:5432"
 
   pgadmin:
-    image: dpage/pgadmin4
+    image: dpage/pgadmin4:latest
     environment:
       - PGADMIN_DEFAULT_EMAIL=postgres@email.com
       - PGADMIN_DEFAULT_PASSWORD=postgres
     ports:
       - "5050:80"
     volumes:
-      - ./pgadmin:/root/.pgadmin
+      - ./DB/pgadmin:/root/.pgadmin
 
   prachi-am-api:
     image: prachi-am-api
     ports:
       - "8080:80"
       - "8081:443"
+    depends_on:
+      - prachi-am-db
+
+  prachi-am-auth:
+    image: prachi-am-auth
+    ports:
+      - "8082:80"
+      - "8083:443"
     depends_on:
       - prachi-am-db
 

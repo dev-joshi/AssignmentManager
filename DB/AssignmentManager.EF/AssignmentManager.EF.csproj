@@ -32,7 +32,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\AssignmentManager.Entities\AssignmentManager.Entities.csproj" />
+    <ProjectReference Include="..\..\Entities\AssignmentManager.Entities.csproj" />
   </ItemGroup>
 
 </Project>

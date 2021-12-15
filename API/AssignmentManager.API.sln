@@ -6,7 +6,7 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{DEBB8734-219C-45A7-A2F4-87AE0E05DE8F}"
 	ProjectSection(SolutionItems) = preProject
 		.dockerignore = .dockerignore
-		.editorconfig = .editorconfig
+		..\.editorconfig = ..\.editorconfig
 		..\.gitignore = ..\.gitignore
 		..\deploy.bat = ..\deploy.bat
 		directory.build.props = directory.build.props
@@ -14,11 +14,15 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		Dockerfile = Dockerfile
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AssignmentManager.Entities", "AssignmentManager.Entities\AssignmentManager.Entities.csproj", "{4EB76F61-A113-4946-A8AF-C71900E06829}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AssignmentManager.Entities", "..\Entities\AssignmentManager.Entities.csproj", "{4EB76F61-A113-4946-A8AF-C71900E06829}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AssignmentManager.API", "AssignmentManager.API\AssignmentManager.API.csproj", "{6215E5FA-EEF0-44CD-A2D5-3103BF27CE0C}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AssignmentManager.EF", "AssignmentManager.EF\AssignmentManager.EF.csproj", "{B5C0BD6D-7F62-4338-BE86-DD9B9D43E774}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AssignmentManager.EF", "..\DB\AssignmentManager.EF\AssignmentManager.EF.csproj", "{B5C0BD6D-7F62-4338-BE86-DD9B9D43E774}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DB", "DB", "{9F5A9544-E892-4AE1-9AF8-C9FC9B521191}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Entities", "Entities", "{8289A591-23AE-4051-A53B-EA5FD3504A00}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -41,6 +45,10 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{4EB76F61-A113-4946-A8AF-C71900E06829} = {8289A591-23AE-4051-A53B-EA5FD3504A00}
+		{B5C0BD6D-7F62-4338-BE86-DD9B9D43E774} = {9F5A9544-E892-4AE1-9AF8-C9FC9B521191}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C54449D0-0728-4231-ACA3-D7F9D720D4D4}

@@ -1,4 +1,4 @@
-namespace AssignmentManager.API
+namespace AssignmentManager.Auth
 {
     using AssignmentManager.DB.DI;
     using Microsoft.AspNetCore.Builder;
@@ -34,7 +34,7 @@ namespace AssignmentManager.API
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "AssignmentManager.API", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "AssignmentManager.Auth", Version = "v1" });
             });
         }
 
@@ -49,7 +49,7 @@ namespace AssignmentManager.API
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "AssignmentManager.API v1"));
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "AssignmentManager.Auth v1"));
             }
 
             app.UseHttpsRedirection();

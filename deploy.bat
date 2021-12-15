@@ -8,7 +8,10 @@ REM setting Docker buildkit to not hide errors
 SET DOCKER_BUILDKIT=0
 
 REM Build rest API docker container
-call :RunCommand "docker build --rm -t prachi-am-api:latest -f API\DockerFile API\"
+call :RunCommand "docker build --rm -t prachi-am-auth:latest -f Auth\DockerFile ."
+
+REM Build rest API docker container
+call :RunCommand "docker build --rm -t prachi-am-api:latest -f API\DockerFile ."
 
 REM Build nginx server container for proxying angular apps
 call :RunCommand "docker build --rm -t prachi-am-nginx:latest -f UI\nginx\DockerFile UI\"
