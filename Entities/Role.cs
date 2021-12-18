@@ -1,5 +1,7 @@
 ﻿namespace AssignmentManager.Entities
 {
+    using System.Collections.Generic;
+
     /// <summary>
     /// Role.
     /// </summary>
@@ -20,5 +22,21 @@
         /// The name.
         /// </value>
         public string Name { get; set; }
+
+        /// <summary>
+        /// Gets or sets the services.
+        /// </summary>
+        /// <value>
+        /// The services.
+        /// </value>
+        public ICollection<Service> Services { get; set; }
+
+        /// <summary>
+        /// Gets or sets the users.
+        /// </summary>
+        /// <value>
+        /// The users.
+        /// </value>
+        public ICollection<User> Users { get; set; }
     }
 }

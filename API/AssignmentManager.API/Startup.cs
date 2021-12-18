@@ -1,7 +1,8 @@
 namespace AssignmentManager.API
 {
     using AssignmentManager.Auth.Business.DI;
-    using AssignmentManager.DB.DI;
+    using AssignmentManager.DB.EF.DI;
+    using AssignmentManager.DB.Storage;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.Extensions.Configuration;
@@ -67,7 +68,9 @@ namespace AssignmentManager.API
 
             using (var scope = app.ApplicationServices.CreateScope())
             {
-                scope.ServiceProvider.SetupDB();
+                var databaseSetup = scope.ServiceProvider.GetService<IDatabaseSetup>();
+                databaseSetup.SetupDatabase();
+                databaseSetup.SeedData();
             }
         }
     }

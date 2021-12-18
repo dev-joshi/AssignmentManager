@@ -34,6 +34,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Common\AssignmentManager.Common\AssignmentManager.Common.csproj" />
     <ProjectReference Include="..\..\Entities\AssignmentManager.Entities.csproj" />
     <ProjectReference Include="..\AssignmentManager.Storage\AssignmentManager.Storage.csproj" />
   </ItemGroup>

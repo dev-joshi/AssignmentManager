@@ -1,5 +1,6 @@
 ﻿namespace AssignmentManager.DB.DBContext
 {
+    using AssignmentManager.DB.EF;
     using AssignmentManager.Entities;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Configuration;
@@ -41,6 +42,12 @@
         public DbSet<Service> Services { get; set; }
 
         /// <inheritdoc/>
+        public void Migrate()
+        {
+            this.Database.Migrate();
+        }
+
+        /// <inheritdoc/>
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             var builder = new ConfigurationBuilder();
@@ -51,6 +58,10 @@
             // Adding postgres DB from connection string in appsettings file.
             optionsBuilder.UseNpgsql(configuration.GetConnectionString("DefaultConnection"));
 
+#if DEBUG
+            // For Debugging.
+            optionsBuilder.EnableSensitiveDataLogging();
+#endif
             base.OnConfiguring(optionsBuilder);
         }
     }

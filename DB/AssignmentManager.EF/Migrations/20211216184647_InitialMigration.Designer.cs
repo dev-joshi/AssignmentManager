@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace AssignmentManager.EF.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20211215221244_AddingCloumns")]
-    partial class AddingCloumns
+    [Migration("20211216184647_InitialMigration")]
+    partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -89,17 +89,7 @@ namespace AssignmentManager.EF.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("text");
 
-                    b.Property<int?>("ServiceId")
-                        .HasColumnType("integer");
-
-                    b.Property<int?>("UserId")
-                        .HasColumnType("integer");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("ServiceId");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("Roles");
                 });
@@ -158,6 +148,36 @@ namespace AssignmentManager.EF.Migrations
                     b.ToTable("Users");
                 });
 
+            modelBuilder.Entity("RoleService", b =>
+                {
+                    b.Property<int>("RolesId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("ServicesId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("RolesId", "ServicesId");
+
+                    b.HasIndex("ServicesId");
+
+                    b.ToTable("RoleService");
+                });
+
+            modelBuilder.Entity("RoleUser", b =>
+                {
+                    b.Property<int>("RolesId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("UsersId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("RolesId", "UsersId");
+
+                    b.HasIndex("UsersId");
+
+                    b.ToTable("RoleUser");
+                });
+
             modelBuilder.Entity("AssignmentManager.Entities.Attachment", b =>
                 {
                     b.HasOne("AssignmentManager.Entities.Assignment", null)
@@ -165,30 +185,39 @@ namespace AssignmentManager.EF.Migrations
                         .HasForeignKey("AssignmentId");
                 });
 
-            modelBuilder.Entity("AssignmentManager.Entities.Role", b =>
+            modelBuilder.Entity("RoleService", b =>
                 {
+                    b.HasOne("AssignmentManager.Entities.Role", null)
+                        .WithMany()
+                        .HasForeignKey("RolesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("AssignmentManager.Entities.Service", null)
-                        .WithMany("Roles")
-                        .HasForeignKey("ServiceId");
+                        .WithMany()
+                        .HasForeignKey("ServicesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("RoleUser", b =>
+                {
+                    b.HasOne("AssignmentManager.Entities.Role", null)
+                        .WithMany()
+                        .HasForeignKey("RolesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("AssignmentManager.Entities.User", null)
-                        .WithMany("Roles")
-                        .HasForeignKey("UserId");
+                        .WithMany()
+                        .HasForeignKey("UsersId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("AssignmentManager.Entities.Assignment", b =>
                 {
                     b.Navigation("Attachments");
-                });
-
-            modelBuilder.Entity("AssignmentManager.Entities.Service", b =>
-                {
-                    b.Navigation("Roles");
-                });
-
-            modelBuilder.Entity("AssignmentManager.Entities.User", b =>
-                {
-                    b.Navigation("Roles");
                 });
 #pragma warning restore 612, 618
         }

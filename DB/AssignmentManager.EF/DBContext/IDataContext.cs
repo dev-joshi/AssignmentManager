@@ -1,9 +1,9 @@
-﻿namespace AssignmentManager.DB.DBContext
+﻿namespace AssignmentManager.DB.EF
 {
-    using System.Threading;
-    using System.Threading.Tasks;
     using AssignmentManager.Entities;
     using Microsoft.EntityFrameworkCore;
+    using System.Threading;
+    using System.Threading.Tasks;
 
     /// <summary>
     /// Data Context.
@@ -16,7 +16,7 @@
         /// <value>
         /// The assignments.
         /// </value>
-        DbSet<Assignment> Assignments { get; set; }
+        DbSet<Assignment> Assignments { get; }
 
         /// <summary>
         /// Gets or sets the attachments.
@@ -24,7 +24,7 @@
         /// <value>
         /// The attachments.
         /// </value>
-        DbSet<Attachment> Attachments { get; set; }
+        DbSet<Attachment> Attachments { get; }
 
         /// <summary>
         /// Gets or sets the roles.
@@ -32,7 +32,7 @@
         /// <value>
         /// The roles.
         /// </value>
-        DbSet<Role> Roles { get; set; }
+        DbSet<Role> Roles { get; }
 
         /// <summary>
         /// Gets or sets the users.
@@ -40,7 +40,7 @@
         /// <value>
         /// The users.
         /// </value>
-        DbSet<User> Users { get; set; }
+        DbSet<User> Users { get; }
 
         /// <summary>
         /// Gets or sets the services.
@@ -48,13 +48,24 @@
         /// <value>
         /// The services.
         /// </value>
-        DbSet<Service> Services { get; set; }
+        DbSet<Service> Services { get; }
 
         /// <summary>
         /// Saves the changes async.
         /// </summary>
         /// <param name="cancellationToken">The cancellation token.</param>
-        /// <returns>Task Representing an Async operation.</returns>
+        /// <returns>The number of state entries written to the database.</returns>
         Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
+
+        /// <summary>
+        /// Saves the changes.
+        /// </summary>
+        /// <returns>The number of state entries written to the database.</returns>
+        int SaveChanges();
+
+        /// <summary>
+        /// Migrates the Database to current schema and creates if not created.
+        /// </summary>
+        void Migrate();
     }
 }

@@ -1,7 +1,9 @@
 namespace AssignmentManager.Auth
 {
     using AssignmentManager.Auth.Business.DI;
-    using AssignmentManager.DB.DI;
+    using AssignmentManager.Common.Logging;
+    using AssignmentManager.DB.EF.DI;
+    using AssignmentManager.DB.Storage;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.Extensions.Configuration;
@@ -31,6 +33,7 @@ namespace AssignmentManager.Auth
         /// <param name="services">The services.</param>
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddLogger();
             services.AddDatabase();
             services.AddTokenGeneration();
             services.AddControllers();
@@ -65,10 +68,12 @@ namespace AssignmentManager.Auth
                 endpoints.MapControllers();
             });
 
-            using (var scope = app.ApplicationServices.CreateScope())
-            {
-                scope.ServiceProvider.SetupDB();
-            }
+            //using (var scope = app.ApplicationServices.CreateScope())
+            //{
+            //    var databaseSetup = scope.ServiceProvider.GetService<IDatabaseSetup>();
+            //    databaseSetup.SetupDatabase();
+            //    databaseSetup.SeedData();
+            //}
         }
     }
 }

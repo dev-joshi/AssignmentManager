@@ -2,6 +2,7 @@
 {
     using System.Collections.Generic;
     using AssignmentManager.Auth.Business;
+    using AssignmentManager.Common;
     using AssignmentManager.Entities;
     using Microsoft.AspNetCore.Mvc;
 
@@ -35,7 +36,7 @@
         [HttpGet]
         public IEnumerable<Role> ReturnRoles(string token)
         {
-            return this.tokenValidator.GetRoles(token);
+            return this.tokenValidator.GetRoles(token.Base64Decode());
         }
     }
 }

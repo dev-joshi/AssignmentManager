@@ -13,6 +13,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Auth\AssignmentManager.Auth.Business\AssignmentManager.Auth.Business.csproj" />
+    <ProjectReference Include="..\..\Common\AssignmentManager.Common\AssignmentManager.Common.csproj" />
     <ProjectReference Include="..\..\DB\AssignmentManager.EF\AssignmentManager.EF.csproj" />
     <ProjectReference Include="..\..\Entities\AssignmentManager.Entities.csproj" />
   </ItemGroup>
