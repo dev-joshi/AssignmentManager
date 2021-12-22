@@ -1,4 +1,4 @@
-FROM node:alpine as SubscriberApp
+FROM node:16-alpine as SubscriberApp
 
 RUN apk update && apk add --no-cache make git
 
@@ -6,7 +6,7 @@ WORKDIR /app
 
 COPY SubscriberApp/package*.json  /app/
 
-RUN npm install @angular/cli@6.0.8 -g \
+RUN npm install @angular/cli@13.1.2 -g \
     && npm ci
 
 COPY SubscriberApp /app

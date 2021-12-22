@@ -6,8 +6,7 @@
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test",
-    "build:docker": "ng build --configuration production --base-href /PublisherApp/ --outputPath=../../usr/share/nginx/html/publisher"
+    "test": "ng test"
   },
   "private": true,
   "dependencies": {
