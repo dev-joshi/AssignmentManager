@@ -1,7 +1,6 @@
 ﻿namespace AssignmentManager.DB.EF.Repositories
 {
     using System;
-    using AssignmentManager.DB.DBContext;
     using AssignmentManager.Entities;
     using AssignmentManager.DB.Storage.Repositories;
     using System.Collections.Generic;
@@ -61,19 +60,19 @@
         /// <inheritdoc />
         public async Task<IEnumerable<User>> GetAllUsersAsync()
         {
-            return await this.dataContext.Users.ToListAsync();
+            return await this.dataContext.Users.Include(u => u.Roles).ToListAsync();
         }
 
         /// <inheritdoc />
         public async Task<User> GetUserAsync(int id)
         {
-            return await this.dataContext.Users.FindAsync(id);
+            return await this.dataContext.Users.Include(u => u.Roles).FirstOrDefaultAsync(x => x.Id == id);
         }
 
         /// <inheritdoc />
         public async Task<User> GetUserAsync(string username)
         {
-            return await this.dataContext.Users.FirstAsync(x => x.UserName == username);
+            return await this.dataContext.Users.Include(u => u.Roles).FirstOrDefaultAsync(x => x.UserName == username);
         }
     }
 }

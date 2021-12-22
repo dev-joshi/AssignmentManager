@@ -1,5 +1,6 @@
 ﻿namespace AssignmentManager.Auth.Business
 {
+    using System;
     using System.Collections.Generic;
     using AssignmentManager.Entities;
 
@@ -13,8 +14,8 @@
         /// </summary>
         /// <param name="roles">The roles.</param>
         /// <returns>
-        /// The token.
+        /// The token and expiration time of the token.
         /// </returns>
-        string GenerateToken(IEnumerable<Role> roles);
+        (string, DateTime) GenerateToken(IEnumerable<Role> roles);
     }
 }

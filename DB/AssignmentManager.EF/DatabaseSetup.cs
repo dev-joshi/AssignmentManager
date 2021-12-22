@@ -5,6 +5,7 @@
     using AssignmentManager.Entities;
     using Microsoft.Extensions.Logging;
     using System;
+    using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
 
@@ -60,7 +61,7 @@
                     }
                     else
                     {
-                        Task.Delay(TimeSpan.FromSeconds(10)).ConfigureAwait(false).GetAwaiter().GetResult();
+                        Task.Delay(TimeSpan.FromSeconds(15)).ConfigureAwait(false).GetAwaiter().GetResult();
                     }
                 }
             }
@@ -76,20 +77,32 @@
                 {
                     this.logger.LogInformation("Seeding data");
 
-                    this.dataContext.Roles.Add(new Role { Id = 1, Name = "Role 1" });
-                    this.dataContext.Roles.Add(new Role { Id = 2, Name = "Role 2" });
-                    this.dataContext.Roles.Add(new Role { Id = 3, Name = "Role 3" });
-
+                    this.dataContext.Roles.Add(new Role { Id = 1, Name = "Role 1", Services = new List<Service>(), Users = new List<User>() });
+                    this.dataContext.Roles.Add(new Role { Id = 2, Name = "Role 2", Services = new List<Service>(), Users = new List<User>() });
+                    this.dataContext.Roles.Add(new Role { Id = 3, Name = "Role 3", Services = new List<Service>(), Users = new List<User>() });
+                    this.dataContext.SaveChanges();
+                    
+                    this.dataContext.Services.Add(new Service { Id = 1, ServiceName = "Test Service 1", Roles = new List<Role>() });
+                    this.dataContext.Users.Add(new User { Id = 1, Name = "Test User 1", UserName = "TestUser", PasswordHash = "abc".Hash(), Roles = new List<Role>() });
+                    this.dataContext.SaveChanges();
+                    
+                    this.dataContext.Services.First(x => x.Id == 1).Roles.Add(this.dataContext.Roles.First(x => x.Id == 1));
+                    this.dataContext.Services.First(x => x.Id == 1).Roles.Add(this.dataContext.Roles.First(x => x.Id == 2));
                     this.dataContext.SaveChanges();
 
-                    this.dataContext.Services.Add(new Service { Id = 1, ServiceName = "Test Service 1" });
-                    this.dataContext.Users.Add(new User { Id = 1, Name = "Test User 1", UserName = "TestUser", PasswordHash = "abc".Hash() });
-
+                    this.dataContext.Roles.First(x => x.Id == 1).Services.Add(this.dataContext.Services.First(x => x.Id == 1));
+                    this.dataContext.Roles.First(x => x.Id == 2).Services.Add(this.dataContext.Services.First(x => x.Id == 1));
                     this.dataContext.SaveChanges();
 
-                    this.dataContext.Services.Find(1).Roles.Add(this.dataContext.Roles.Find(1));
-
+                    this.dataContext.Users.First(x => x.Id == 1).Roles.Add(this.dataContext.Roles.First(x => x.Id == 2));
+                    this.dataContext.Users.First(x => x.Id == 1).Roles.Add(this.dataContext.Roles.First(x => x.Id == 3));
                     this.dataContext.SaveChanges();
+
+                    this.dataContext.Roles.First(x => x.Id == 2).Users.Add(this.dataContext.Users.First(x => x.Id == 1));
+                    this.dataContext.Roles.First(x => x.Id == 3).Users.Add(this.dataContext.Users.First(x => x.Id == 1));
+                    this.dataContext.SaveChanges();
+
+                    this.logger.LogInformation("Seeding complete");
                 }
                 else
                 {

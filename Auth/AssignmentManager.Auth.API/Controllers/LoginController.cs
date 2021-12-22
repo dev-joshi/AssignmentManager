@@ -5,7 +5,8 @@
     using AssignmentManager.Auth.Business;
     using AssignmentManager.Common;
     using AssignmentManager.DB.Storage.Repositories;
-    using AssignmentManager.Entities.ApiModel;
+    using AssignmentManager.Entities.ApiModel.Request;
+    using AssignmentManager.Entities.ApiModel.Response;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.Logging;
 
@@ -53,7 +54,9 @@
         /// </summary>
         /// <param name="userCreds">The user creds.</param>
         /// <returns>Auth Token.</returns>
-        public async Task<ActionResult<string>> Login(UserCreds userCreds)
+        [HttpGet]
+        [HttpPost]
+        public async Task<ActionResult<BaseResponse>> Login(UserCreds userCreds)
         {
             this.logger.LogInformation("Login Request Recived for {user}", userCreds?.UserName);
 
@@ -69,39 +72,35 @@
 
                     if (user != null)
                     {
-                        this.logger.LogDebug("PasswordHashFromDb : {PasswordHash}", user.PasswordHash);
-                        this.logger.LogDebug("PasswordHashFromReq : {PasswordHash}", userCreds.Password.Hash());
-
                         if (user.PasswordHash.ToLowerInvariant()
                             == userCreds.Password.Hash().ToLowerInvariant())
                         {
-                            this.logger.LogDebug("User : {user}, Roles count : {user.Roles.Count}", user.UserName, user.Roles.Count);
-                            var token = this.tokenGenerator.GenerateToken(user.Roles);
+                            var (token, exipry) = this.tokenGenerator.GenerateToken(user.Roles);
 
                             if (string.IsNullOrWhiteSpace(token))
                             {
                                 this.logger.LogInformation("Could not generate auth token");
-                                return this.BadRequest("Could not generate auth token");
+                                return this.BadRequest(BaseResponse.Failure("Could not generate auth token"));
                             }
 
-                            return this.Ok(token.Base64Encode());
+                            return this.Ok(LoginResponse.Success(token, exipry));
                         }
 
                         this.logger.LogInformation("Invalid Password");
-                        return this.Unauthorized("Invalid Password");
+                        return this.Unauthorized(BaseResponse.Failure("Invalid Password"));
                     }
 
                     this.logger.LogInformation("Invalid User");
-                    return this.Unauthorized("Invalid User");
+                    return this.Unauthorized(BaseResponse.Failure("Invalid User"));
                 }
 
                 this.logger.LogInformation("User creds not provided");
-                return this.BadRequest("User creds not provided");
+                return this.BadRequest(BaseResponse.Failure("User creds not provided"));
             }
             catch (Exception ex)
             {
-                this.logger.LogError(ex, "Failed to process Login Reuqeust");
-                return this.StatusCode(500);
+                this.logger.LogError(ex, "Failed to process Login Request");
+                return this.StatusCode(500, BaseResponse.Failure("Failed to process Login Request"));
             }
         }
     }

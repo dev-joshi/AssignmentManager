@@ -2,7 +2,6 @@
 {
     using System.Collections.Generic;
     using System.Threading.Tasks;
-    using AssignmentManager.DB.DBContext;
     using AssignmentManager.DB.Storage.Repositories;
     using AssignmentManager.Entities;
     using Microsoft.EntityFrameworkCore;
@@ -26,13 +25,13 @@
         /// <inheritdoc />
         public async Task<IEnumerable<Service>> GetAllServicesAsync()
         {
-            return await this.context.Services.ToListAsync();
+            return await this.context.Services.Include(s => s.Roles).ToListAsync();
         }
 
         /// <inheritdoc />
         public async Task<Service> GetServiceAsync(int id)
         {
-            return await this.context.Services.FindAsync(id);
+            return await this.context.Services.Include(s => s.Roles).FirstOrDefaultAsync(s => s.Id == id);
         }
     }
 }

@@ -16,6 +16,7 @@
         public static IServiceCollection AddTokenGeneration(this IServiceCollection serviceCollection)
         {
             serviceCollection.AddTransient<ITokenGenerator, TokenGenerator>();
+            serviceCollection.AddSingleton<TokenUtils>();
 
             return serviceCollection;
         }
@@ -28,6 +29,7 @@
         public static IServiceCollection AddTokenValidation(this IServiceCollection serviceCollection)
         {
             serviceCollection.AddTransient<ITokenValidator, TokenValidator>();
+            serviceCollection.AddSingleton<TokenUtils>();
 
             return serviceCollection;
         }

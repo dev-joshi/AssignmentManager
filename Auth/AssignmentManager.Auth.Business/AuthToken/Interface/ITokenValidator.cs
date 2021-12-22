@@ -9,10 +9,11 @@
     public interface ITokenValidator
     {
         /// <summary>
-        /// Gets the roles from the specified token.
+        /// Validates and gets the roles from the specified token.
         /// </summary>
         /// <param name="token">The token.</param>
-        /// <returns>Roles valid for specfic token.</returns>
-        IEnumerable<Role> GetRoles(string token);
+        /// <param name="roles">Then roles valid for specfic token.</param>
+        /// <returns>true if token valid, false otherwise.</returns>
+        bool TryValidate(string token, out IEnumerable<Role> roles);
     }
 }

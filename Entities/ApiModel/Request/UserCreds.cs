@@ -1,5 +1,8 @@
-﻿namespace AssignmentManager.Entities.ApiModel
+﻿namespace AssignmentManager.Entities.ApiModel.Request
 {
+    /// <summary>
+    /// User Credentials.
+    /// </summary>
     public class UserCreds
     {
         /// <summary>
