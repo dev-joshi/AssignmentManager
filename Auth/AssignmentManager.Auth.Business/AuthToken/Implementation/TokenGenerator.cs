@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.IdentityModel.Tokens.Jwt;
     using System.Security.Claims;
+    using AssignmentManager.Auth.Business.AuthToken.Interface;
     using AssignmentManager.Entities;
     using Microsoft.Extensions.Logging;
     using Microsoft.IdentityModel.Tokens;
@@ -14,7 +15,7 @@
         /// <summary>
         /// The token utils.
         /// </summary>
-        private readonly TokenUtils tokenUtils;
+        private readonly ITokenUtils tokenUtils;
 
         /// <summary>
         /// The logger.
@@ -27,7 +28,7 @@
         /// <param name="tokenUtils">The token utils.</param>
         /// <param name="logger">The logger.</param>
         public TokenGenerator(
-            TokenUtils tokenUtils,
+            ITokenUtils tokenUtils,
             ILogger<TokenGenerator> logger)
         {
             this.tokenUtils = tokenUtils;
@@ -42,7 +43,7 @@
 
             try
             {
-                expiry = DateTime.UtcNow.Add(this.tokenUtils.ExpirationLimit);
+                expiry = DateTime.UtcNow.Add(this.tokenUtils.GetExpirationLimit());
                 token = this.GenerateToken(roles, expiry);
             }
             catch (Exception ex)
@@ -65,7 +66,7 @@
             {
                 Subject = new ClaimsIdentity(),
                 Expires = expires,
-                SigningCredentials = this.tokenUtils.Creds,
+                SigningCredentials = this.tokenUtils.GetSigningCredentials(),
             };
 
             foreach (var role in roles)

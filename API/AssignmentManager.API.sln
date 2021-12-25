@@ -18,7 +18,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AssignmentManager.Entities"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AssignmentManager.API", "AssignmentManager.API\AssignmentManager.API.csproj", "{6215E5FA-EEF0-44CD-A2D5-3103BF27CE0C}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AssignmentManager.EF", "..\DB\AssignmentManager.EF\AssignmentManager.EF.csproj", "{B5C0BD6D-7F62-4338-BE86-DD9B9D43E774}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AssignmentManager.DB.EF", "..\DB\AssignmentManager.EF\AssignmentManager.DB.EF.csproj", "{B5C0BD6D-7F62-4338-BE86-DD9B9D43E774}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DB", "DB", "{9F5A9544-E892-4AE1-9AF8-C9FC9B521191}"
 EndProject
@@ -28,7 +28,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Auth", "Auth", "{CA50E3A8-8
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AssignmentManager.Auth.Business", "..\Auth\AssignmentManager.Auth.Business\AssignmentManager.Auth.Business.csproj", "{5FAA7C16-396B-4868-9D9E-FA9CB726CD88}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AssignmentManager.Storage", "..\DB\AssignmentManager.Storage\AssignmentManager.Storage.csproj", "{61DEFE29-24A1-4E1C-8ECA-67E9A2E5FF30}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AssignmentManager.DB.Storage", "..\DB\AssignmentManager.Storage\AssignmentManager.DB.Storage.csproj", "{61DEFE29-24A1-4E1C-8ECA-67E9A2E5FF30}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{528F2346-957F-4B90-B018-73153D4C8D0A}"
 EndProject

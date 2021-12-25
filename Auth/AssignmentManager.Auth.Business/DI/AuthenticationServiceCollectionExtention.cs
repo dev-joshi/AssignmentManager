@@ -1,6 +1,7 @@
 ﻿namespace AssignmentManager.Auth.Business.DI
 {
     using AssignmentManager.Auth.Business.AuthToken.Implementation;
+    using AssignmentManager.Auth.Business.AuthToken.Interface;
     using Microsoft.Extensions.DependencyInjection;
 
     /// <summary>
@@ -16,7 +17,7 @@
         public static IServiceCollection AddTokenGeneration(this IServiceCollection serviceCollection)
         {
             serviceCollection.AddTransient<ITokenGenerator, TokenGenerator>();
-            serviceCollection.AddSingleton<TokenUtils>();
+            serviceCollection.AddSingleton<ITokenUtils, TokenUtils>();
 
             return serviceCollection;
         }
@@ -29,7 +30,7 @@
         public static IServiceCollection AddTokenValidation(this IServiceCollection serviceCollection)
         {
             serviceCollection.AddTransient<ITokenValidator, TokenValidator>();
-            serviceCollection.AddSingleton<TokenUtils>();
+            serviceCollection.AddSingleton<ITokenUtils, TokenUtils>();
 
             return serviceCollection;
         }

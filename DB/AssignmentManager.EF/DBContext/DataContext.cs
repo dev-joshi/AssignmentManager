@@ -42,6 +42,9 @@
         public DbSet<Service> Services { get; set; }
 
         /// <inheritdoc/>
+        public DbSet<Key> Keys { get; set; }
+
+        /// <inheritdoc/>
         public void Migrate()
         {
             this.Database.Migrate();

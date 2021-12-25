@@ -9,6 +9,9 @@ cd /d %~dp0
 REM setting Docker buildkit to not hide errors
 SET DOCKER_BUILDKIT=0
 
+REM Delete old database to start fresh
+call :RunCommand "if exist DB\pgdata\ ( rmdir /s /q DB\pgdata )"
+
 REM Build rest API docker container
 call :RunCommand "docker build --rm -t prachi-am-auth:latest -f Auth\DockerFile ."
 

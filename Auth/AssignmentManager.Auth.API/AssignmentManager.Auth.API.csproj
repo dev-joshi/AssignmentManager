@@ -14,7 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\DB\AssignmentManager.EF\AssignmentManager.EF.csproj" />
+    <ProjectReference Include="..\..\DB\AssignmentManager.EF\AssignmentManager.DB.EF.csproj" />
     <ProjectReference Include="..\..\Entities\AssignmentManager.Entities.csproj" />
     <ProjectReference Include="..\AssignmentManager.Auth.Business\AssignmentManager.Auth.Business.csproj" />
   </ItemGroup>

@@ -6,6 +6,7 @@
     using System.Linq;
     using System.Security.Claims;
     using System.Text.RegularExpressions;
+    using AssignmentManager.Auth.Business.AuthToken.Interface;
     using AssignmentManager.DB.Storage.Repositories;
     using AssignmentManager.Entities;
     using Microsoft.Extensions.Logging;
@@ -17,7 +18,7 @@
         /// <summary>
         /// The token utils.
         /// </summary>
-        private readonly TokenUtils tokenUtils;
+        private readonly ITokenUtils tokenUtils;
 
         /// <summary>
         /// The role repository.
@@ -36,7 +37,7 @@
         /// <param name="roleRepository">The role repository.</param>
         /// <param name="logger">The logger.</param>
         public TokenValidator(
-            TokenUtils tokenUtils,
+            ITokenUtils tokenUtils,
             IRoleRepository roleRepository,
             ILogger<TokenValidator> logger)
         {
@@ -77,7 +78,7 @@
                 RequireExpirationTime = true,
                 ValidateIssuer = false,
                 ValidateAudience = false,
-                IssuerSigningKey = this.tokenUtils.SecurityKey,
+                IssuerSigningKey = this.tokenUtils.GetSecurityKey(),
             };
 
             var claimsPrincipal = handler.ValidateToken(token, validation, out var securityToken);

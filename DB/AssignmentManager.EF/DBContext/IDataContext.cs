@@ -51,6 +51,14 @@
         DbSet<Service> Services { get; }
 
         /// <summary>
+        /// Gets the keys.
+        /// </summary>
+        /// <value>
+        /// The keys.
+        /// </value>
+        DbSet<Key> Keys { get; }
+
+        /// <summary>
         /// Saves the changes async.
         /// </summary>
         /// <param name="cancellationToken">The cancellation token.</param>

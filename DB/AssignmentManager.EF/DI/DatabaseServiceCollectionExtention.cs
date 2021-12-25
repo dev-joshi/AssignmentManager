@@ -38,6 +38,7 @@
             serviceCollection.AddTransient<IServiceRepository, ServiceRepository>();
             serviceCollection.AddTransient<IUserRepository, UserRepository>();
             serviceCollection.AddTransient<IRoleRepository, RoleRepository>();
+            serviceCollection.AddTransient<IKeyRepository, KeyRepository>();
 
             return serviceCollection;
         }

@@ -12,7 +12,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Common\AssignmentManager.Common\AssignmentManager.Common.csproj" />
-    <ProjectReference Include="..\..\DB\AssignmentManager.Storage\AssignmentManager.Storage.csproj" />
+    <ProjectReference Include="..\..\DB\AssignmentManager.Storage\AssignmentManager.DB.Storage.csproj" />
     <ProjectReference Include="..\..\Entities\AssignmentManager.Entities.csproj" />
   </ItemGroup>
 
