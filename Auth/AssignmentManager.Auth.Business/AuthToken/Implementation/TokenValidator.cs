@@ -5,9 +5,7 @@
     using System.IdentityModel.Tokens.Jwt;
     using System.Linq;
     using System.Security.Claims;
-    using System.Text.RegularExpressions;
     using AssignmentManager.Auth.Business.AuthToken.Interface;
-    using AssignmentManager.DB.Storage.Repositories;
     using AssignmentManager.Entities;
     using Microsoft.Extensions.Logging;
     using Microsoft.IdentityModel.Tokens;
@@ -21,11 +19,6 @@
         private readonly ITokenUtils tokenUtils;
 
         /// <summary>
-        /// The role repository.
-        /// </summary>
-        private readonly IRoleRepository roleRepository;
-
-        /// <summary>
         /// The logger.
         /// </summary>
         private readonly ILogger<TokenValidator> logger;
@@ -34,26 +27,60 @@
         /// Initializes a new instance of the <see cref="TokenValidator" /> class.
         /// </summary>
         /// <param name="tokenUtils">The token utils.</param>
-        /// <param name="roleRepository">The role repository.</param>
         /// <param name="logger">The logger.</param>
         public TokenValidator(
             ITokenUtils tokenUtils,
-            IRoleRepository roleRepository,
             ILogger<TokenValidator> logger)
         {
             this.tokenUtils = tokenUtils;
-            this.roleRepository = roleRepository;
             this.logger = logger;
         }
 
         /// <inheritdoc />
-        public bool TryValidate(string token, out IEnumerable<Role> roles)
+        public bool TryValidate(string token, out IEnumerable<Roles> roles, out int userId, out int serviceId, out string userName, out string serviceName)
         {
-            roles = Enumerable.Empty<Role>();
+            roles = Enumerable.Empty<Roles>();
+            userId = 0;
+            serviceId = 0;
+            userName = string.Empty;
+            serviceName = string.Empty;
 
             try
             {
-                roles = this.GetRoles(token);
+                var validation = new TokenValidationParameters
+                {
+                    RequireExpirationTime = true,
+                    ValidateIssuer = false,
+                    ValidateAudience = false,
+                    IssuerSigningKey = this.tokenUtils.GetSecurityKey(),
+                };
+
+                var claimsPrincipal = new JwtSecurityTokenHandler().ValidateToken(token, validation, out var securityToken);
+
+                var claims = (claimsPrincipal.Identity as ClaimsIdentity).Claims;
+
+                var userIdClaim = claims?.FirstOrDefault(c => c.Type == ClaimConstants.UserId);
+                if (userIdClaim == null
+                    || !int.TryParse(userIdClaim.Value, out userId))
+                {
+                    userId = 0;
+                }
+
+                var serviceIdClaim = claims?.FirstOrDefault(c => c.Type == ClaimConstants.ServiceId);
+                if (serviceIdClaim == null
+                    || !int.TryParse(serviceIdClaim.Value, out serviceId))
+                {
+                    serviceId = 0;
+                }
+
+                userName = claims?.FirstOrDefault(c => c.Type == ClaimConstants.UserName)?.Value;
+                serviceName = claims?.FirstOrDefault(c => c.Type == ClaimConstants.ServiceName)?.Value;
+
+                roles = claims
+                    ?.Where(c => c.Type == ClaimTypes.Role && !string.IsNullOrWhiteSpace(c.Value))
+                    ?.Select(c => int.TryParse(c.Value, out int value) ? (Roles)value : 0)
+                    ?.Where(r => Enum.IsDefined(r));
+
                 return true;
             }
             catch (Exception ex)
@@ -62,46 +89,6 @@
             }
 
             return false;
-        }
-
-        /// <summary>
-        /// Gets the roles.
-        /// </summary>
-        /// <param name="token">The token.</param>
-        /// <returns>Roles valid for the given token.</returns>
-        private IEnumerable<Role> GetRoles(string token)
-        {
-            var handler = new JwtSecurityTokenHandler();
-            var jwtToken = handler.ReadJwtToken(token);
-            var validation = new TokenValidationParameters
-            {
-                RequireExpirationTime = true,
-                ValidateIssuer = false,
-                ValidateAudience = false,
-                IssuerSigningKey = this.tokenUtils.GetSecurityKey(),
-            };
-
-            var claimsPrincipal = handler.ValidateToken(token, validation, out var securityToken);
-
-            var claim = claimsPrincipal.Identity as ClaimsIdentity;
-
-            var rolesIds = claim.Claims
-                .Where(x => Regex.Match(x.Type, "Role_\\d+").Success)
-                .Select(x => x.Type.Split('_')[1])
-                .Select(x => int.TryParse(x, out var val) ? val : 0);
-
-            var result = new List<Role>();
-
-            foreach (var roleId in rolesIds)
-            {
-                if (roleId > 0)
-                {
-                    result.Add(this.roleRepository.GetRoleAsync(roleId)
-                        .ConfigureAwait(false).GetAwaiter().GetResult());
-                }
-            }
-
-            return result;
         }
     }
 }

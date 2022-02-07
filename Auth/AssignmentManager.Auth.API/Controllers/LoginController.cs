@@ -75,15 +75,15 @@
                         if (user.PasswordHash.ToLowerInvariant()
                             == userCreds.Password.Hash().ToLowerInvariant())
                         {
-                            var (token, exipry) = this.tokenGenerator.GenerateToken(user.Roles);
+                            var token = await this.tokenGenerator.GenerateTokenForUserAsync(user.Id);
 
-                            if (string.IsNullOrWhiteSpace(token))
+                            if (token == null)
                             {
                                 this.logger.LogInformation("Could not generate auth token");
                                 return this.BadRequest(BaseResponse.Failure("Could not generate auth token"));
                             }
 
-                            return this.Ok(LoginResponse.Success(token, exipry));
+                            return this.Ok(LoginResponse.Success(token));
                         }
 
                         this.logger.LogInformation("Invalid Password");

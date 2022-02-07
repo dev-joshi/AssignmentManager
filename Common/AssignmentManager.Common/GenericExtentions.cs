@@ -1,6 +1,8 @@
 ﻿namespace AssignmentManager.Common
 {
     using System;
+    using System.ComponentModel;
+    using System.Reflection;
     using System.Security.Cryptography;
     using System.Text;
 
@@ -52,6 +54,20 @@
             }
 
             return sb.ToString();
+        }
+
+        /// <summary>
+        /// Gets Description of an Enum value.
+        /// </summary>
+        /// <param name="enumValue">The Enum value.</param>
+        /// <returns>enum description.</returns>
+        public static string GetDescription(this Enum enumValue)
+        {
+            var fieldInfo = enumValue.GetType().GetField(enumValue.ToString());
+
+            var descriptionAttributes = (DescriptionAttribute[])fieldInfo.GetCustomAttributes(typeof(DescriptionAttribute), false);
+
+            return descriptionAttributes.Length > 0 ? descriptionAttributes[0].Description : enumValue.ToString();
         }
     }
 }

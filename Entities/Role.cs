@@ -13,7 +13,7 @@
         /// <value>
         /// The identifier.
         /// </value>
-        public int Id { get; set; }
+        public Roles Id { get; set; }
 
         /// <summary>
         /// Gets or Sets the name.

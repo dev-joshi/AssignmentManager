@@ -38,15 +38,14 @@
         /// <inheritdoc />
         public void SetupDatabase()
         {
-            // Setup DB with 5 attempts 10 seconds apart.
+            // Setup DB with 5 attempts 15 seconds apart.
             var attemptsLeft = 5;
-
-            this.logger.LogInformation("Setting up DB with {attemptsLeft} attemps", attemptsLeft);
 
             while (attemptsLeft > 0)
             {
                 try
                 {
+                    this.logger.LogInformation("Setting up DB, attempt count : {attemptsLeft}", 6 - attemptsLeft);
                     dataContext.Migrate();
                     this.logger.LogInformation("DB Setup Completed");
                     break;
@@ -77,29 +76,32 @@
                 {
                     this.logger.LogInformation("Seeding data");
 
-                    this.dataContext.Roles.Add(new Role { Id = 1, Name = "Role 1", Services = new List<Service>(), Users = new List<User>() });
-                    this.dataContext.Roles.Add(new Role { Id = 2, Name = "Role 2", Services = new List<Service>(), Users = new List<User>() });
-                    this.dataContext.Roles.Add(new Role { Id = 3, Name = "Role 3", Services = new List<Service>(), Users = new List<User>() });
+                    // Add all roles to database.
+                    foreach (var e in Enum.GetValues<Roles>())
+                    {
+                        this.dataContext.Roles.Add(new Role { Id = e, Name = e.GetDescription(), Services = new List<Service>(), Users = new List<User>() });
+                    }
+
                     this.dataContext.SaveChanges();
                     
                     this.dataContext.Services.Add(new Service { Id = 1, ServiceName = "Test Service 1", Roles = new List<Role>() });
                     this.dataContext.Users.Add(new User { Id = 1, Name = "Test User 1", UserName = "TestUser", PasswordHash = "abc".Hash(), Roles = new List<Role>() });
                     this.dataContext.SaveChanges();
                     
-                    this.dataContext.Services.First(x => x.Id == 1).Roles.Add(this.dataContext.Roles.First(x => x.Id == 1));
-                    this.dataContext.Services.First(x => x.Id == 1).Roles.Add(this.dataContext.Roles.First(x => x.Id == 2));
+                    this.dataContext.Services.First(x => x.Id == 1).Roles.Add(this.dataContext.Roles.First(x => x.Id == Roles.ViewUserData));
+                    this.dataContext.Services.First(x => x.Id == 1).Roles.Add(this.dataContext.Roles.First(x => x.Id == Roles.ViewAllAssignment));
                     this.dataContext.SaveChanges();
 
-                    this.dataContext.Roles.First(x => x.Id == 1).Services.Add(this.dataContext.Services.First(x => x.Id == 1));
-                    this.dataContext.Roles.First(x => x.Id == 2).Services.Add(this.dataContext.Services.First(x => x.Id == 1));
+                    this.dataContext.Roles.First(x => x.Id == Roles.ViewUserData).Services.Add(this.dataContext.Services.First(x => x.Id == 1));
+                    this.dataContext.Roles.First(x => x.Id == Roles.ViewAllAssignment).Services.Add(this.dataContext.Services.First(x => x.Id == 1));
                     this.dataContext.SaveChanges();
 
-                    this.dataContext.Users.First(x => x.Id == 1).Roles.Add(this.dataContext.Roles.First(x => x.Id == 2));
-                    this.dataContext.Users.First(x => x.Id == 1).Roles.Add(this.dataContext.Roles.First(x => x.Id == 3));
+                    this.dataContext.Users.First(x => x.Id == 1).Roles.Add(this.dataContext.Roles.First(x => x.Id == Roles.ViewAssignment));
+                    this.dataContext.Users.First(x => x.Id == 1).Roles.Add(this.dataContext.Roles.First(x => x.Id == Roles.SubmitAssignment));
                     this.dataContext.SaveChanges();
 
-                    this.dataContext.Roles.First(x => x.Id == 2).Users.Add(this.dataContext.Users.First(x => x.Id == 1));
-                    this.dataContext.Roles.First(x => x.Id == 3).Users.Add(this.dataContext.Users.First(x => x.Id == 1));
+                    this.dataContext.Roles.First(x => x.Id == Roles.ViewAssignment).Users.Add(this.dataContext.Users.First(x => x.Id == 1));
+                    this.dataContext.Roles.First(x => x.Id == Roles.SubmitAssignment).Users.Add(this.dataContext.Users.First(x => x.Id == 1));
                     this.dataContext.SaveChanges();
 
                     this.dataContext.Keys.Add(new Key { Id = 1, CreatedOn = DateTime.UtcNow, Name = "JwTSecretKey", Value = "ERMN05OPLoDvbTTa/QkqLNMI7cPLguaRyHzyg7n5qNBVjQmtBhz4SzYh4NBVCXi3KJHlSXKP+oi2+bXr6CUYTR==" });

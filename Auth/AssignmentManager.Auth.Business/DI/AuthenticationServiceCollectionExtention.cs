@@ -2,7 +2,9 @@
 {
     using AssignmentManager.Auth.Business.AuthToken.Implementation;
     using AssignmentManager.Auth.Business.AuthToken.Interface;
+    using Microsoft.AspNetCore.Authentication.JwtBearer;
     using Microsoft.Extensions.DependencyInjection;
+    using Microsoft.IdentityModel.Tokens;
 
     /// <summary>
     /// DI extentions for adding Authentication Business.
@@ -31,6 +33,22 @@
         {
             serviceCollection.AddTransient<ITokenValidator, TokenValidator>();
             serviceCollection.AddSingleton<ITokenUtils, TokenUtils>();
+
+            var tokenUtils = serviceCollection.BuildServiceProvider().GetService<ITokenUtils>();
+
+            serviceCollection.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(
+                options =>
+                {
+                    options.RequireHttpsMetadata = false;
+                    options.SaveToken = true;
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        RequireExpirationTime = true,
+                        ValidateIssuer = false,
+                        ValidateAudience = false,
+                        IssuerSigningKey = tokenUtils.GetSecurityKey(),
+                    };
+                });
 
             return serviceCollection;
         }

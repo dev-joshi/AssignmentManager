@@ -8,6 +8,16 @@
 		{
 			"name": "GetAssignments",
 			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIxIiwiVXNlck5hbWUiOiJUZXN0IFVzZXIgMSIsInJvbGUiOlsiNCIsIjUiXSwibmJmIjoxNjQ0MjIwODc2LCJleHAiOjE2NDQyMjI2NzYsImlhdCI6MTY0NDIyMDg3Nn0.m_gvFkmxnRGBqcOuWxfMD7rtqdHFiXyE8GreprO6eSc",
+							"type": "string"
+						}
+					]
+				},
 				"method": "GET",
 				"header": [],
 				"url": {
@@ -56,11 +66,21 @@
 		{
 			"name": "ValidateToken",
 			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIxIiwiVXNlck5hbWUiOiJUZXN0IFVzZXIgMSIsInJvbGUiOlsiNCIsIjUiXSwibmJmIjoxNjQ0MjI0ODk5LCJleHAiOjE2NDQyMjY2OTksImlhdCI6MTY0NDIyNDg5OX0.U50YjaZ4jrlfSjJ8FuljYF9Kc5qch7yfp_srbylzLtc",
+							"type": "string"
+						}
+					]
+				},
 				"method": "POST",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJSb2xlXzIiOiJSb2xlIDIiLCJSb2xlXzMiOiJSb2xlIDMiLCJuYmYiOjE2NDA0NDM0MTMsImV4cCI6MTY0MDQ0NTIxMywiaWF0IjoxNjQwNDQzNDEzfQ.mPMyh69gzu3w9KqXpOenGHk1Gk9-TMGxZg_cBKInG2Q\"\r\n}",
+					"raw": "",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -76,6 +96,68 @@
 					"port": "8080",
 					"path": [
 						"valid"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "RoleCheck1",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIxIiwiVXNlck5hbWUiOiJUZXN0IFVzZXIgMSIsInJvbGUiOlsiNCIsIjUiXSwibmJmIjoxNjQ0MjI0ODk5LCJleHAiOjE2NDQyMjY2OTksImlhdCI6MTY0NDIyNDg5OX0.U50YjaZ4jrlfSjJ8FuljYF9Kc5qch7yfp_srbylzLtc",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/valid/RoleCheck/CreateAssignment",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"valid",
+						"RoleCheck",
+						"CreateAssignment"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "RoleCheck2",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIxIiwiVXNlck5hbWUiOiJUZXN0IFVzZXIgMSIsInJvbGUiOlsiNCIsIjUiXSwibmJmIjoxNjQ0MjI0ODk5LCJleHAiOjE2NDQyMjY2OTksImlhdCI6MTY0NDIyNDg5OX0.U50YjaZ4jrlfSjJ8FuljYF9Kc5qch7yfp_srbylzLtc",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/valid/RoleCheck/ViewAssignment",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"valid",
+						"RoleCheck",
+						"ViewAssignment"
 					]
 				}
 			},

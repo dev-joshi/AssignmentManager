@@ -3,8 +3,10 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
+    using AssignmentManager.Auth.Business.AuthToken;
     using AssignmentManager.DB.Storage.Repositories;
     using AssignmentManager.Entities;
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
 
     /// <summary>
@@ -12,6 +14,7 @@
     /// </summary>
     [Route("api/assignments")]
     [ApiController]
+    [Authorize]
     public class AssignmentController : ControllerBase
     {
         /// <summary>
@@ -34,6 +37,7 @@
         /// <param name="id">The identifier.</param>
         /// <returns>assignment for given id.</returns>
         [HttpGet("{id}")]
+        [Allow(Role = Roles.ViewAllAssignment)]
         public async Task<ActionResult<Assignment>> GetAssignment(int id)
         {
             var product = await this.assignmentRepository.GetAssignmentAsync(id);
@@ -51,6 +55,7 @@
         /// </summary>
         /// <returns>all the assignments.</returns>
         [HttpGet]
+        [Allow(Role = Roles.ViewAllAssignment)]
         public async Task<ActionResult<IEnumerable<Assignment>>> GetAssignments()
         {
             return this.Ok(await this.assignmentRepository.GetAllAssignmentsAsync());
@@ -62,6 +67,7 @@
         /// <param name="id">The user id.</param>
         /// <returns>assignments for the given user.</returns>
         [HttpGet("user/{id}")]
+        [Allow(Role = Roles.ViewAssignment)]
         public async Task<ActionResult<IEnumerable<Assignment>>> GetAssignmentsByUser(int id)
         {
             if (id > 0)
@@ -87,6 +93,7 @@
         [HttpPatch("Add")]
         [HttpPost("Add")]
         [HttpPut("Add")]
+        [Allow(Role = Roles.CreateAssignment)]
         public async Task<ActionResult> AddAssignment(Assignment assignment)
         {
             await this.assignmentRepository.AddOrUpdateAsync(assignment);
@@ -100,6 +107,7 @@
         /// <param name="id">The identifier.</param>
         /// <returns>the response for deletion.</returns>
         [HttpDelete("{id}")]
+        [Allow(Role = Roles.CreateAssignment)]
         public async Task<ActionResult> DeleteAssignment(int id)
         {
             await this.assignmentRepository.DeleteAsync(id);

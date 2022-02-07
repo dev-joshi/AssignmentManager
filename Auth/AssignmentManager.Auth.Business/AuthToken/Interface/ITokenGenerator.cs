@@ -1,7 +1,6 @@
 ﻿namespace AssignmentManager.Auth.Business
 {
-    using System;
-    using System.Collections.Generic;
+    using System.Threading.Tasks;
     using AssignmentManager.Entities;
 
     /// <summary>
@@ -10,12 +9,21 @@
     public interface ITokenGenerator
     {
         /// <summary>
-        /// Generates the token for given roles.
+        /// Generates the token for given user.
         /// </summary>
-        /// <param name="roles">The roles.</param>
+        /// <param name="userId">The User Id.</param>
         /// <returns>
-        /// The token and expiration time of the token.
+        /// The token.
         /// </returns>
-        (string, DateTime) GenerateToken(IEnumerable<Role> roles);
+        Task<Token> GenerateTokenForUserAsync(int userId);
+
+        /// <summary>
+        /// Generates the token for given service.
+        /// </summary>
+        /// <param name="serviceId">The Service Id.</param>
+        /// <returns>
+        /// The token.
+        /// </returns>
+        Task<Token> GenerateTokenForServiceAsync(int serviceId);
     }
 }
