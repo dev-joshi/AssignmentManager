@@ -38,7 +38,7 @@
         /// <inheritdoc />
         public void SetupDatabase()
         {
-            // Setup DB with 5 attempts 15 seconds apart.
+            // Setup DB with 5 attempts 20 seconds apart.
             var attemptsLeft = 5;
 
             while (attemptsLeft > 0)
@@ -60,7 +60,7 @@
                     }
                     else
                     {
-                        Task.Delay(TimeSpan.FromSeconds(15)).ConfigureAwait(false).GetAwaiter().GetResult();
+                        Task.Delay(TimeSpan.FromSeconds(20)).ConfigureAwait(false).GetAwaiter().GetResult();
                     }
                 }
             }

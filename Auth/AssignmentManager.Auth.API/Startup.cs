@@ -68,12 +68,12 @@ namespace AssignmentManager.Auth
                 endpoints.MapControllers();
             });
 
-            //using (var scope = app.ApplicationServices.CreateScope())
-            //{
-            //    var databaseSetup = scope.ServiceProvider.GetService<IDatabaseSetup>();
-            //    databaseSetup.SetupDatabase();
-            //    databaseSetup.SeedData();
-            //}
+           // using (var scope = app.ApplicationServices.CreateScope())
+           // {
+           //     var databaseSetup = scope.ServiceProvider.GetService<IDatabaseSetup>();
+           //     databaseSetup.SetupDatabase();
+           //     databaseSetup.SeedData();
+           // }
         }
     }
 }
