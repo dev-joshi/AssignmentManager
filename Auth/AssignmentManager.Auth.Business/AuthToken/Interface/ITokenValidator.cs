@@ -19,5 +19,23 @@
         /// <param name="serviceName">The service name inside given token.</param>
         /// <returns>true if token valid, false otherwise.</returns>
         bool TryValidate(string token, out IEnumerable<Roles> roles, out int userId, out int serviceId, out string userName, out string serviceName);
+
+        /// <summary>
+        /// Checks if the token is valid for given role and belongs to given user.
+        /// </summary>
+        /// <param name="token">The token.</param>
+        /// <param name="userName">The user name.</param>
+        /// <param name="role">The role.</param>
+        /// <returns>true if token valid, false otherwise.</returns>
+        bool TryValidateForUserRole(string token, string userName, Roles role);
+
+        /// <summary>
+        /// Checks if the token is valid for given role and belongs to given service.
+        /// </summary>
+        /// <param name="token">The token.</param>
+        /// <param name="serviceName">The service name.</param>
+        /// <param name="role">The role.</param>
+        /// <returns>true if token valid, false otherwise.</returns>
+        bool TryValidateForServiceRole(string token, string serviceName, Roles role);
     }
 }

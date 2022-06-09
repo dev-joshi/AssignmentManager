@@ -17,6 +17,13 @@
         Task<Service> GetServiceAsync(int id);
 
         /// <summary>
+        /// Gets the service.
+        /// </summary>
+        /// <param name="name">The name.</param>
+        /// <returns>The service.</returns>
+        Task<Service> GetServiceAsync(string name);
+
+        /// <summary>
         /// Gets all services.
         /// </summary>
         /// <returns>The services.</returns>

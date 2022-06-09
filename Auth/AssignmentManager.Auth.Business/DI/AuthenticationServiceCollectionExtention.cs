@@ -4,6 +4,7 @@
     using AssignmentManager.Auth.Business.AuthToken.Interface;
     using Microsoft.AspNetCore.Authentication.JwtBearer;
     using Microsoft.Extensions.DependencyInjection;
+    using Microsoft.Extensions.DependencyInjection.Extensions;
     using Microsoft.IdentityModel.Tokens;
 
     /// <summary>
@@ -18,8 +19,8 @@
         /// <returns>service collection.</returns>
         public static IServiceCollection AddTokenGeneration(this IServiceCollection serviceCollection)
         {
-            serviceCollection.AddTransient<ITokenGenerator, TokenGenerator>();
-            serviceCollection.AddSingleton<ITokenUtils, TokenUtils>();
+            serviceCollection.TryAddTransient<ITokenGenerator, TokenGenerator>();
+            serviceCollection.TryAddSingleton<ITokenUtils, TokenUtils>();
 
             return serviceCollection;
         }
@@ -31,8 +32,8 @@
         /// <returns>service collection.</returns>
         public static IServiceCollection AddTokenValidation(this IServiceCollection serviceCollection)
         {
-            serviceCollection.AddTransient<ITokenValidator, TokenValidator>();
-            serviceCollection.AddSingleton<ITokenUtils, TokenUtils>();
+            serviceCollection.TryAddTransient<ITokenValidator, TokenValidator>();
+            serviceCollection.TryAddSingleton<ITokenUtils, TokenUtils>();
 
             var tokenUtils = serviceCollection.BuildServiceProvider().GetService<ITokenUtils>();
 

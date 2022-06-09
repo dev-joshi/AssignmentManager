@@ -100,6 +100,10 @@
             }
         }
 
+        /// <summary>
+        /// Validates the role for Create Assignment.
+        /// </summary>
+        /// <returns>validation response.</returns>
         [HttpGet("RoleCheck/CreateAssignment")]
         [HttpPost("RoleCheck/CreateAssignment")]
         [Authorize]
@@ -109,6 +113,10 @@
             return this.Ok(TokenValidationResponse.Success("You are Authorized!!"));
         }
 
+        /// <summary>
+        /// Validates the role for View Assignment.
+        /// </summary>
+        /// <returns>validation response.</returns>
         [HttpGet("RoleCheck/ViewAssignment")]
         [HttpPost("RoleCheck/ViewAssignment")]
         [Authorize]

@@ -90,5 +90,29 @@
 
             return false;
         }
+
+        /// <inheritdoc />
+        public bool TryValidateForUserRole(string token, string userName, Roles role)
+        {
+            return !string.IsNullOrWhiteSpace(userName)
+                && role != Roles.None
+                && this.TryValidate(token, out var roles, out _, out _, out var userNameInToken, out _)
+                && !string.IsNullOrWhiteSpace(userNameInToken)
+                && userName.Equals(userNameInToken, StringComparison.OrdinalIgnoreCase)
+                && roles != null
+                && roles.Contains(role);
+        }
+
+        /// <inheritdoc />
+        public bool TryValidateForServiceRole(string token, string serviceName, Roles role)
+        {
+            return !string.IsNullOrWhiteSpace(serviceName)
+                && role != Roles.None
+                && this.TryValidate(token, out var roles, out _, out _, out _, out var serviceNameInToken)
+                && !string.IsNullOrWhiteSpace(serviceNameInToken)
+                && serviceName.Equals(serviceNameInToken, StringComparison.OrdinalIgnoreCase)
+                && roles != null
+                && roles.Contains(role);
+        }
     }
 }

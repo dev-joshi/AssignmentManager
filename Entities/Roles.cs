@@ -48,7 +48,13 @@
         /// <summary>
         /// Edit Assignments created by other users.
         /// </summary>
-        [Description(" Edit Assignments created by other users")]
+        [Description("Edit Assignments created by other users")]
         EditAllAssignment = 7,
+
+        /// <summary>
+        /// Connect to Queue to Publish and subscribe Messages.
+        /// </summary>
+        [Description("Publish and subscribe for Messages to Queue")]
+        ConnectToMessageQueue = 8,
     }
 }

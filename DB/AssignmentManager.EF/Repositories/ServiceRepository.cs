@@ -33,5 +33,11 @@
         {
             return await this.context.Services.Include(s => s.Roles).FirstOrDefaultAsync(s => s.Id == id);
         }
+
+        /// <inheritdoc />
+        public async Task<Service> GetServiceAsync(string name)
+        {
+            return await this.context.Services.Include(s => s.Roles).FirstOrDefaultAsync(s => s.ServiceName == name);
+        }
     }
 }

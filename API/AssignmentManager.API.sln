@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.31613.86
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.32112.339
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{DEBB8734-219C-45A7-A2F4-87AE0E05DE8F}"
 	ProjectSection(SolutionItems) = preProject
@@ -34,6 +34,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{528F23
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AssignmentManager.Common", "..\Common\AssignmentManager.Common\AssignmentManager.Common.csproj", "{256C17B8-54FD-4283-BF58-B80B85D505D6}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Queue", "Queue", "{6B134313-EE75-42C7-A9F3-4395A182D9CF}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AssignmentManager.Queue.Business", "..\Queue\AssignmentManager.Queue.Business\AssignmentManager.Queue.Business.csproj", "{23E2427B-EC88-4928-B832-50865C3EF1D4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -64,6 +68,10 @@ Global
 		{256C17B8-54FD-4283-BF58-B80B85D505D6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{256C17B8-54FD-4283-BF58-B80B85D505D6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{256C17B8-54FD-4283-BF58-B80B85D505D6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{23E2427B-EC88-4928-B832-50865C3EF1D4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{23E2427B-EC88-4928-B832-50865C3EF1D4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{23E2427B-EC88-4928-B832-50865C3EF1D4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{23E2427B-EC88-4928-B832-50865C3EF1D4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -74,6 +82,7 @@ Global
 		{5FAA7C16-396B-4868-9D9E-FA9CB726CD88} = {CA50E3A8-8D59-4754-97BF-5A7D3105C6C3}
 		{61DEFE29-24A1-4E1C-8ECA-67E9A2E5FF30} = {9F5A9544-E892-4AE1-9AF8-C9FC9B521191}
 		{256C17B8-54FD-4283-BF58-B80B85D505D6} = {528F2346-957F-4B90-B018-73153D4C8D0A}
+		{23E2427B-EC88-4928-B832-50865C3EF1D4} = {6B134313-EE75-42C7-A9F3-4395A182D9CF}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C54449D0-0728-4231-ACA3-D7F9D720D4D4}

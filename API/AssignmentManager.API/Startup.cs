@@ -3,6 +3,7 @@ namespace AssignmentManager.API
     using AssignmentManager.Auth.Business.DI;
     using AssignmentManager.DB.EF.DI;
     using AssignmentManager.DB.Storage;
+    using AssignmentManager.Queue.Business.DI;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.Extensions.Configuration;
@@ -34,6 +35,7 @@ namespace AssignmentManager.API
         {
             services.AddDatabase();
             services.AddTokenValidation();
+            services.AddQueueBusiness();
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {

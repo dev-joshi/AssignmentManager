@@ -96,15 +96,17 @@
                     this.dataContext.Roles.First(x => x.Id == Roles.ViewAllAssignment).Services.Add(this.dataContext.Services.First(x => x.Id == 1));
                     this.dataContext.SaveChanges();
 
+                    this.dataContext.Users.First(x => x.Id == 1).Roles.Add(this.dataContext.Roles.First(x => x.Id == Roles.CreateAssignment));
                     this.dataContext.Users.First(x => x.Id == 1).Roles.Add(this.dataContext.Roles.First(x => x.Id == Roles.ViewAssignment));
                     this.dataContext.Users.First(x => x.Id == 1).Roles.Add(this.dataContext.Roles.First(x => x.Id == Roles.SubmitAssignment));
                     this.dataContext.SaveChanges();
 
+                    this.dataContext.Roles.First(x => x.Id == Roles.CreateAssignment).Users.Add(this.dataContext.Users.First(x => x.Id == 1));
                     this.dataContext.Roles.First(x => x.Id == Roles.ViewAssignment).Users.Add(this.dataContext.Users.First(x => x.Id == 1));
                     this.dataContext.Roles.First(x => x.Id == Roles.SubmitAssignment).Users.Add(this.dataContext.Users.First(x => x.Id == 1));
                     this.dataContext.SaveChanges();
 
-                    this.dataContext.Keys.Add(new Key { Id = 1, CreatedOn = DateTime.UtcNow, Name = "JwTSecretKey", Value = "ERMN05OPLoDvbTTa/QkqLNMI7cPLguaRyHzyg7n5qNBVjQmtBhz4SzYh4NBVCXi3KJHlSXKP+oi2+bXr6CUYTR==" });
+                    this.dataContext.Keys.Add(new Key { Id = 1, CreatedOn = DateTime.UtcNow, Name = "JwTSecretKey", Value = ConfigurationConstants.JwTSecretKey });
                     this.dataContext.SaveChanges();
 
                     this.logger.LogInformation("Seeding complete");

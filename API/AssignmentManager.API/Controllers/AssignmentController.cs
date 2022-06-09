@@ -6,6 +6,8 @@
     using AssignmentManager.Auth.Business.AuthToken;
     using AssignmentManager.DB.Storage.Repositories;
     using AssignmentManager.Entities;
+    using AssignmentManager.Entities.QueueMessage;
+    using AssignmentManager.Queue.Business;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
 
@@ -23,12 +25,21 @@
         private readonly IAssignmentRepository assignmentRepository;
 
         /// <summary>
+        /// The event aggregator.
+        /// </summary>
+        private readonly IQueueEventAggregator eventAggregator;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="AssignmentController"/> class.
         /// </summary>
         /// <param name="assignmentRepository">The assignment repository.</param>
-        public AssignmentController(IAssignmentRepository assignmentRepository)
+        /// <param name="eventAggregator">The event aggregator.</param>
+        public AssignmentController(
+            IAssignmentRepository assignmentRepository,
+            IQueueEventAggregator eventAggregator)
         {
             this.assignmentRepository = assignmentRepository;
+            this.eventAggregator = eventAggregator;
         }
 
         /// <summary>
@@ -97,7 +108,7 @@
         public async Task<ActionResult> AddAssignment(Assignment assignment)
         {
             await this.assignmentRepository.AddOrUpdateAsync(assignment);
-
+            await this.eventAggregator.PublishAsync(new AssignmentCreatedMessage(assignment.Id, assignment.Name));
             return this.Ok();
         }
 

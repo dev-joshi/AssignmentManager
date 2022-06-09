@@ -5,6 +5,7 @@
     using AssignmentManager.DB.Storage;
     using AssignmentManager.DB.Storage.Repositories;
     using Microsoft.Extensions.DependencyInjection;
+    using Microsoft.Extensions.DependencyInjection.Extensions;
 
     /// <summary>
     /// DI extentions for adding Database.
@@ -19,8 +20,8 @@
         public static IServiceCollection AddDatabase(this IServiceCollection serviceCollection)
         {
             serviceCollection.AddDbContext<DataContext>();
-            serviceCollection.AddSingleton<IDataContext>(serviceProvider => serviceProvider.GetService<DataContext>());
-            serviceCollection.AddTransient<IDatabaseSetup, DatabaseSetup>();
+            serviceCollection.TryAddSingleton<IDataContext>(serviceProvider => serviceProvider.GetService<DataContext>());
+            serviceCollection.TryAddTransient<IDatabaseSetup, DatabaseSetup>();
 
             serviceCollection.AddRepositories();
 
@@ -34,11 +35,11 @@
         /// <returns>service collection.</returns>
         private static IServiceCollection AddRepositories(this IServiceCollection serviceCollection)
         {
-            serviceCollection.AddTransient<IAssignmentRepository, AssignmentRepository>();
-            serviceCollection.AddTransient<IServiceRepository, ServiceRepository>();
-            serviceCollection.AddTransient<IUserRepository, UserRepository>();
-            serviceCollection.AddTransient<IRoleRepository, RoleRepository>();
-            serviceCollection.AddTransient<IKeyRepository, KeyRepository>();
+            serviceCollection.TryAddTransient<IAssignmentRepository, AssignmentRepository>();
+            serviceCollection.TryAddTransient<IServiceRepository, ServiceRepository>();
+            serviceCollection.TryAddTransient<IUserRepository, UserRepository>();
+            serviceCollection.TryAddTransient<IRoleRepository, RoleRepository>();
+            serviceCollection.TryAddTransient<IKeyRepository, KeyRepository>();
 
             return serviceCollection;
         }
