@@ -1,5 +1,6 @@
 namespace AssignmentManager.Auth
 {
+    using System;
     using AssignmentManager.Auth.Business.DI;
     using AssignmentManager.Common.Logging;
     using AssignmentManager.DB.EF.DI;
@@ -68,12 +69,7 @@ namespace AssignmentManager.Auth
                 endpoints.MapControllers();
             });
 
-           // using (var scope = app.ApplicationServices.CreateScope())
-           // {
-           //     var databaseSetup = scope.ServiceProvider.GetService<IDatabaseSetup>();
-           //     databaseSetup.SetupDatabase();
-           //     databaseSetup.SeedData();
-           // }
+            AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
         }
     }
 }

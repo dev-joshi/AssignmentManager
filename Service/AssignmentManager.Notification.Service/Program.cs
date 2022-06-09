@@ -1,6 +1,7 @@
 namespace AssignmentManager.Queue.Service
 {
     using AssignmentManager.Common.Logging;
+    using AssignmentManager.DB.EF.DI;
     using AssignmentManager.Queue.Business.DI;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Hosting;
@@ -26,8 +27,10 @@ namespace AssignmentManager.Queue.Service
                 .ConfigureServices((hostContext, services) =>
                 {
                     services.AddLogger();
+                    services.AddDatabase();
                     services.AddQueueBusiness();
                     services.AddHostedService<NotificationService>();
+                    AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
                 });
     }
 }

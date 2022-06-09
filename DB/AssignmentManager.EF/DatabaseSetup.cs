@@ -121,5 +121,11 @@
                 this.logger.LogError(ex, "Failed while seeding data");
             }
         }
+
+        /// <inheritdoc />
+        public bool CanConnect()
+        {
+            return this.dataContext.CanConnect();
+        }
     }
 }

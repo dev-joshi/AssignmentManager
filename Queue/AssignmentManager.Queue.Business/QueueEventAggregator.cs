@@ -44,6 +44,7 @@
         {
             this.tokenGenerator = tokenGenerator;
             this.logger = logger;
+            this.subscriptions = new ConcurrentDictionary<string, List<Func<BaseMessage, Task>>>();
         }
 
         /// <inheritdoc />
@@ -123,6 +124,8 @@
             {
                 this.client = new MqttFactory().CreateMqttClient();
 
+                this.logger.LogInformation("Connecting MQTT client on tcp://{host}:{port}", ConfigurationConstants.HostName, ConfigurationConstants.MqttPort);
+
                 var connectResult = await this.client.ConnectAsync(
                 new MqttClientOptionsBuilder()
                     .WithTcpServer(ConfigurationConstants.HostName, ConfigurationConstants.MqttPort)
@@ -130,6 +133,8 @@
                     .WithUserProperty(ClaimConstants.ServiceName, "Test Service 1")
                     .WithCredentials("Test Service 1", (await this.tokenGenerator.GenerateTokenForServiceAsync(1)).AccessToken)
                     .WithCleanSession(true)
+                    .WithTimeout(TimeSpan.FromSeconds(30))
+                    .WithProtocolVersion(MQTTnet.Formatter.MqttProtocolVersion.V500)
                     .Build());
 
                 if (connectResult == null

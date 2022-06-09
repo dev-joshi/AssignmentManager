@@ -51,6 +51,12 @@
         }
 
         /// <inheritdoc/>
+        public bool CanConnect()
+        {
+            return this.Database.CanConnect();
+        }
+
+        /// <inheritdoc/>
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             var builder = new ConfigurationBuilder();

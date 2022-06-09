@@ -29,6 +29,7 @@ services:
       - "8081:443"
     depends_on:
       - prachi-am-db
+      - prachi-am-queue
 
   prachi-am-auth:
     image: prachi-am-auth

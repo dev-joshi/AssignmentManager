@@ -75,5 +75,13 @@
         /// Migrates the Database to current schema and creates if not created.
         /// </summary>
         void Migrate();
+
+        /// <summary>
+        /// Determines whether database can be connected.
+        /// </summary>
+        /// <returns>
+        ///   <c>true</c> if this instance can connect; otherwise, <c>false</c>.
+        /// </returns>
+        bool CanConnect();
     }
 }

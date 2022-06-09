@@ -1,5 +1,6 @@
 namespace AssignmentManager.Queue.Service
 {
+    using System;
     using AssignmentManager.Auth.Business.DI;
     using AssignmentManager.Common.Logging;
     using AssignmentManager.DB.EF.DI;
@@ -33,6 +34,7 @@ namespace AssignmentManager.Queue.Service
                     services.AddTokenValidation();
                     services.TryAddSingleton<IMqttBroker, MqttBroker>();
                     services.AddHostedService<QueueService>();
+                    AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
                 });
     }
 }

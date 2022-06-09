@@ -1,8 +1,8 @@
 namespace AssignmentManager.API
 {
+    using System;
     using AssignmentManager.Auth.Business.DI;
     using AssignmentManager.DB.EF.DI;
-    using AssignmentManager.DB.Storage;
     using AssignmentManager.Queue.Business.DI;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
@@ -67,12 +67,7 @@ namespace AssignmentManager.API
                 endpoints.MapControllers();
             });
 
-            using (var scope = app.ApplicationServices.CreateScope())
-            {
-                var databaseSetup = scope.ServiceProvider.GetService<IDatabaseSetup>();
-                databaseSetup.SetupDatabase();
-                databaseSetup.SeedData();
-            }
+            AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
         }
     }
 }

@@ -17,8 +17,15 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Common\AssignmentManager.Common\AssignmentManager.Common.csproj" />
+    <ProjectReference Include="..\..\DB\AssignmentManager.EF\AssignmentManager.DB.EF.csproj" />
     <ProjectReference Include="..\..\Queue\AssignmentManager.Queue.Business\AssignmentManager.Queue.Business.csproj" />
     <ProjectReference Include="..\..\Entities\AssignmentManager.Entities.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="appsettings.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>

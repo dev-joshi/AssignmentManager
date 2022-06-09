@@ -21,17 +21,17 @@
         /// <summary>
         /// The token generator.
         /// </summary>
-        private ITokenGenerator tokenGenerator;
+        private readonly ITokenGenerator tokenGenerator;
 
         /// <summary>
         /// The user repository.
         /// </summary>
-        private IUserRepository userRepository;
+        private readonly IUserRepository userRepository;
 
         /// <summary>
         /// The logger.
         /// </summary>
-        private ILogger<LoginController> logger;
+        private readonly ILogger<LoginController> logger;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="LoginController" /> class.

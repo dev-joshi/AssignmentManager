@@ -14,5 +14,13 @@
         /// Seeds the data.
         /// </summary>
         void SeedData();
+
+        /// <summary>
+        /// Determines whether database can be connected.
+        /// </summary>
+        /// <returns>
+        ///   <c>true</c> if this instance can connect; otherwise, <c>false</c>.
+        /// </returns>
+        bool CanConnect();
     }
 }

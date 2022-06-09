@@ -44,11 +44,12 @@
         /// <inheritdoc />
         public async Task StartAsync(int port)
         {
-            this.logger.LogInformation("Starting MQTT server");
+            this.logger.LogInformation("Starting MQTT server on {host}:{port}", System.Net.IPAddress.Loopback, port);
 
             this.server = new MqttFactory().CreateMqttServer(new MqttServerOptionsBuilder()
                 .WithDefaultEndpointBoundIPAddress(System.Net.IPAddress.Loopback)
                 .WithDefaultEndpointPort(port)
+                .WithDefaultCommunicationTimeout(TimeSpan.FromSeconds(30))
                 .Build());
 
             this.server.ValidatingConnectionAsync += this.Validate;
@@ -59,6 +60,8 @@
             this.server.InterceptingPublishAsync += this.HandleEvent;
 
             await this.server.StartAsync().ConfigureAwait(false);
+
+            this.logger.LogInformation("Started MQTT server");
         }
 
         /// <inheritdoc />
@@ -72,6 +75,7 @@
             }
 
             this.server?.Dispose();
+            this.logger.LogInformation("Stopped MQTT server");
         }
 
         /// <summary>

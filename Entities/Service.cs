@@ -24,6 +24,14 @@
         public string ServiceName { get; set; }
 
         /// <summary>
+        /// Gets or sets the secret hash.
+        /// </summary>
+        /// <value>
+        /// The secret hash.
+        /// </value>
+        public string SecretHash { get; set; }
+
+        /// <summary>
         /// Gets or sets the the roles..
         /// </summary>
         /// <value>
